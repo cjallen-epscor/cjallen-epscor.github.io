@@ -1113,8 +1113,14 @@ p.underlined{
 	text-transform: uppercase;
 }
 
-
-
+#triangle-facing-right {
+   float:left;
+   color:#fff;
+    border-right: 4px solid; 
+    border-bottom: 4px solid;
+    width: 10px; height: 10px;
+    transform: rotate(-45deg);
+}
 
 /*********************************************************************************/
 /* Work                                                                          */
