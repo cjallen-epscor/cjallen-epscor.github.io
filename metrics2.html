@@ -17,7 +17,6 @@
 		<script src="js/jquery.scrollex.min.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/init.js"></script>
-		<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.6/slick.min.js"></script>
 	 
 	 	<!-- Load Charts -->
    		 <script src="js/annual-report-charts.js"></script>
@@ -29,38 +28,38 @@
 			<link rel="stylesheet" href="css/style.css" />
 			<link rel="stylesheet" href="css/style-wide.css" />
 			<link rel="stylesheet" href="css/style-normal.css" />
-			<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.6/slick.css"/>
 		</noscript>
-		
-		<script src="//code.jquery.com/jquery-latest.min.js"></script>
-		<script src="//unslider.com/unslider.min.js"></script>
-		
+	
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 	
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">
      google.load("visualization", "1.1", {packages:["bar"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Document Type', 'Target', 'Actual', 'Actual'],
-          ['Publications', 15, 26, 40],
+          ['Document Type', 'Target', 'Actual', 'Actual (Total)'],
+          ['Publications', 15, 26, 40,],
           ['Proposals', 25, 42, 0],
           ['Presentations', 50, 105, 0]
         ]);
 
         var options = {
           chart: {
-            title: 'Company Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-          }
+            title: 'Publications, Proposals, & Presentations',
+            subtitle: 'Sales, Expenses, and Profit: Year 2',
+            
+          },
+              colors: ['#1b9e77', '#d95f02', '#7570b3']
+          
         };
 
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
         chart.draw(data, options);
       }
+      
     </script>
     
 	</head>
@@ -84,7 +83,7 @@
 					</nav>
 			</header>
 
-	<!-- Science & Research Intro -->
+	<!-- Metrics Intro -->
 			<section id="intro-science" >
 				<div class="content container 75%">
 					<header>
@@ -100,7 +99,6 @@
 			<section id="metrics-box" >
 					<header>
 						<h2>Year 2 Metrics</h2>
-						<p class="centered">Publications, Proposals, &amp; Presentations</p>
 					</header>
 
     <div id="columnchart_material" style="width: 100%; height: 500px;"></div>
@@ -120,110 +118,11 @@
             
           
 
-	<!--<script>
-
-		var doughnutData = [
-				{
-					
-					value: 46,
-					color: "#46BFBD",
-					highlight: "#5AD3D1",
-					label: "Female"
-				},
-				{
-					value: 54,
-					color: "#FDB45C",
-					highlight: "#FFC870",
-					label: "Male"
-				},
-				
-
-			];
-
-		new Chart(ctx2).Doughnut(data, {
-    animateScale: true,
-        legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-});
-
-
-	</script>-->
+	
             
            </div> 
-            <!-- Geothermal -->
-			<section id="geothermal" >
-				<h2>Geothermal</h2>
-				
-					<p class="underlined">University of New Mexico, New Mexico State University, 
-					<br>Eastern New Mexico University, Santa Fe Community College</p>
-				
-			<!--Slider Section -->	
-				<div class="banner">
-					<ul>
-						<li style="background-image: url('http://unslider.com/img/shop.jpg');">
-							<h1>Uh, that’s about it.</h1>
-							<p>I just wanted to show you another slide.</p>
-						</li>
-						
-						
-						
-						<li style="background-image: url('http://unslider.com/img/subway.jpg');">
-							<h1>Open-source.</h1>
-							<p>Everything to do with Unslider is hosted on GitHub.</p>
-						</li>
-						
-						<li style="background-image: url('http://unslider.com/img/sunset.jpg');">
-							<h1>Slider 1</h1>
-							<p>No fancy effects or unnecessary markup, and it’s less than 3kb.</p>
-						</li>
-						
-						
-					</ul>
-				</div>
-				<!-- End Slider Section -->		
-
-				<div class="block-3">
-					<h4>Making use of algal biomass a sustainable, economically viable component of a renewable energy portfolio.</h4>
-				<a href="#" class="highlight-button">Button to highlight</a>
-				</div>
-				
-				<div class="block-9">
-					
-						<p>What good is a reward if you ain't around to use it? Besides, attacking that battle station ain't my idea of courage. It's more like suicide. 
-							All right. Well, take care of yourself, Han. I guess that's what you're best at, ain't it? Obi-Wan is here. The Force is with him. Remember, a Jedi can 
-							feel the Force flowing through him. I suggest you try it again, Luke. This time, let go your conscious self and act on instinct. I find your lack of faith disturbing.</p>
-						
-						<p>Don't be too proud of this technological terror you've constructed. The ability to destroy a planet is insignificant next to the power of the Force. 
-							In my experience, there is no such thing as luck. I'm surprised you had the courage to take the responsibility yourself. Ye-ha!</p>
-							<p>Don't be too proud of this technological terror you've constructed. The ability to destroy a planet is insignificant next to the power of the Force. 
-							In my experience, there is no such thing as luck. I'm surprised you had the courage to take the responsibility yourself. Ye-ha!</p>
-						</div>
-				
-			</section>
-
-	<!-- End Geothermal-->
-	
-	 		<div class="sci-section-footers">
-				<div class="float-left"><a href="#science-components">All Science Components</a></div>
-				<div class="float-left"><a href="#">Download PDF</a></div>
-				<div class="float-left"><a href="#solar">Solar</a></div>
-			</div>
-		
-		
-            
-            <div class="sci-section-footers">
-				<div class="float-left"><a href="#science-components">All Science Components</a></div>
-				<div class="float-left"><a href="#">Download PDF</a></div>
-				<div class="float-left"><a href="#uranium">Uranium</a></div>
-			</div>
-		
-
 			
-			<div class="sci-section-footers">
-				<div class="float-left"><a href="#science-components">All Science Components</a></div>
-				<div class="float-left"><a href="#">Download PDF</a></div>
-				<div class="float-left"><a href="#soc-nexus">Social &amp; Natural Science Nexus</a></div>
-			</div>
-		
+	
 
 		<!-- Footer -->
 			<footer id="footer">
