@@ -1097,6 +1097,7 @@ p.underlined{
 		z-index:999;
 		text-align:center;
 		position:relative;
+		
 }
 
 .top{
@@ -1109,7 +1110,7 @@ p.underlined{
 	width:25%;
 	font-weight:bold;
 	margin-left:4em;
-	padding:1em 0 1em 0;
+
 	text-transform: uppercase;
 }
 

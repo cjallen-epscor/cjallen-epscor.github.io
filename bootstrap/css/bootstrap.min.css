@@ -940,12 +940,18 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 .btn-default {
 	color: #333;
-	background-color: #fff;
-	border-color: #ccc
+	background-color: #FF4500;
+	/*border-color: #fff;*/
+	text-transform:uppercase;
+	font-weight:bold;
+	
 }
+
+
+
 .btn-default:focus, .btn-default.focus {
 	color: #333;
-	background-color: #e6e6e6;
+	background-color: none;
 	border-color: #8c8c8c
 }
 .btn-default:hover {
@@ -955,7 +961,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
 	color: #333;
-	background-color: #e6e6e6;
+	background-color: none;
 	border-color: #adadad
 }
 .btn-default:active:hover, .btn-default.active:hover, .open > .dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus {
@@ -1063,19 +1069,19 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
 	color: #fff;
-	background-color: #31b0d5;
-	border-color: #269abc
+	background-color: none;
+	border-color: #fff;
 }
 .btn-info:active:hover, .btn-info.active:hover, .open > .dropdown-toggle.btn-info:hover, .btn-info:active:focus, .btn-info.active:focus, .open > .dropdown-toggle.btn-info:focus, .btn-info:active.focus, .btn-info.active.focus, .open > .dropdown-toggle.btn-info.focus {
 	color: #fff;
-	background-color: #269abc;
+	background-color: none;
 	border-color: #1b6d85
 }
 .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
 	background-image: none
 }
 .btn-info.disabled, .btn-info[disabled], fieldset[disabled] .btn-info, .btn-info.disabled:hover, .btn-info[disabled]:hover, fieldset[disabled] .btn-info:hover, .btn-info.disabled:focus, .btn-info[disabled]:focus, fieldset[disabled] .btn-info:focus, .btn-info.disabled.focus, .btn-info[disabled].focus, fieldset[disabled] .btn-info.focus, .btn-info.disabled:active, .btn-info[disabled]:active, fieldset[disabled] .btn-info:active, .btn-info.disabled.active, .btn-info[disabled].active, fieldset[disabled] .btn-info.active {
-	background-color: #5bc0de;
+	background-color: #none;
 	border-color: #46b8da
 }
 .btn-info .badge {
