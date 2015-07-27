@@ -93,8 +93,8 @@
         function drawChart3() {
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-          ['Underrepresented Minority',     33],
-          ['Others',      67]
+          ['Underrepresented Minority', 33],
+          ['Others', 67]
         ]);
 
         var options = {
@@ -109,6 +109,33 @@
         var chart = new google.visualization.PieChart(document.getElementById('donutchart-minority'));
         chart.draw(data, options);
       }   
+      
+       google.setOnLoadCallback(drawChart4);
+
+        function drawChart4() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Administration', 5],
+          ['Cyberinfrastructure', 8],
+          ['Education & Outreach', 22],
+          ['Research',      65]
+        ]);
+
+        var options = {
+          title: 'Funding',
+          pieHole: 0.5,
+          slices: {
+            0: { color: 'teal' },
+            1: { color: 'gray' },
+            2: { color: 'red' },
+            3: { color: 'black' }
+          }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart-funding'));
+        chart.draw(data, options);
+      }   
+      
     </script>
     
 	</head>
@@ -171,6 +198,7 @@
     
         <div id="donutchart-minority" style="width: 900px; height: 500px;"></div>
 
+        <div id="donutchart-funding" style="width: 900px; height: 500px;"></div>
 
 		</div>
 			</section>
