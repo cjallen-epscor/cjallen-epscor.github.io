@@ -50,13 +50,14 @@
         var options = {
           chart: {
             title: 'Publications, Proposals, & Presentations',
-            subtitle: 'Sales, Expenses, and Profit: Year 2',
+            subtitle: 'All right. Well, take care of yourself, Han.',
             
           },
           	height: 400,
-              colors: ['#1b9e77', '#d95f02', '#7570b3']
-          
+              colors: ['#1b9e77', '#d95f02', '#7570b3'],
         };
+      
+
 
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
@@ -160,7 +161,7 @@
 			</header>
 
 	<!-- Metrics Intro -->
-			<section id="intro-metrics" >
+			<div id="intro-metrics" >
 				<div class="content container 75%">
 					<header>
 					  <h1>Year 2 Metrics</h1>
@@ -168,18 +169,18 @@
 					<p>What good is a reward if you ain't around to use it? Besides, attacking that battle station ain't my idea of courage. 
 						It's more like suicide. All right. Well, take care of yourself, Han.</p> 
 				</div>
-			</section>
+			</div>
 
-			<section id="metrics-box-outer-even" >
+			<div id="metrics-box-outer-even" >
 				<div id="metrics-box-inner-even">
 					<header>
-						<h2>Title Needed Here</h2>
+						<h2>Documents</h2>
 					</header>
 					
 					<!-- Bar Graph - Pubs, Proposals, and Presentations -->
-		    		<div id="columnchart_material" style="width: 700px; height: 500px;"></div>
+		    		<div id="columnchart_material" ></div>
 					</div>
-			</section>
+			</div>
 			
 			<!--Begin Demographics -->
 

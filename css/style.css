@@ -1071,7 +1071,7 @@ p.underlined{
 		position:relative;
 		margin-left:auto;
 		margin-right:auto;
-		background: #B2B2B2;
+		/*background: #B2B2B2;*/
 		padding:1em;
 		clear:both;
 	}
@@ -1086,6 +1086,22 @@ p.underlined{
 	#metrics-box-inner-odd h2{
 		padding-top:1em;
 		text-align:center;
+	}
+	
+	
+	/*donut charts */
+	
+	#donutchart-minority{
+		display:block;
+		float:left;
+		width:40%;
+		background:#ccc;
+	}
+	
+	#donutchart-gender{
+		float:left;
+		display:block;
+		width:40%;
 	}
 
 /*********************************************************************************/
