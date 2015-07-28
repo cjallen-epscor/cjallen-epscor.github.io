@@ -1046,15 +1046,16 @@ p.underlined{
 		text-align:center;
 }
 	#metrics-box-outer-even {
-		width:100%;
+		width:85%;
 		position:relative;
 		margin-left:auto;
 		margin-right:auto;
 		padding:1em;
+		clear:both;
 	}
 	
 	#metrics-box-inner-even {
-	width:100%;
+		width:100%;
 		position:relative;
 		margin-left:auto;
 		margin-right:auto;
@@ -1066,13 +1067,13 @@ p.underlined{
 	
 	
 	#metrics-box-outer-odd {
-		width:100%;
+		width:85%;
 		position:relative;
 		margin-left:auto;
 		margin-right:auto;
 		background: #B2B2B2;
 		padding:1em;
-
+		clear:both;
 	}
 	
 	#metrics-box-inner-odd {
