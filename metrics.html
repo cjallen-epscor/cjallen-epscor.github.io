@@ -36,10 +36,10 @@
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">
     
-        google.setOnLoadCallback(drawChart);
+    /*----- Documents Bar Chart-----*/ 
 
+    google.setOnLoadCallback(drawChart);
 	function drawChart() {	
-		
         var data = google.visualization.arrayToDataTable([
           ['Document Type', 'Target', 'Actual', 'Actual (Total)'],
           ['Publications', 15, 26, 40,],
@@ -57,42 +57,38 @@
               colors: ['#1b9e77', '#d95f02', '#7570b3'],
         };
       
-
-
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
+		var chart = new google.charts.Bar(document.getElementById('columnchart-publications'));
         chart.draw(data, options);
       }
-      
       google.load("visualization", "1.1", {packages:["bar", "corechart"]});
-            
 	
+	/*-----Gender Pie Chart-----*/ 
+	 
 	 google.setOnLoadCallback(drawChart2);
-     
      function drawChart2() {
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-          ['Male',     54],
-          ['Female',      46]
+          ['Male', 54],
+          ['Female', 46]
         ]);
-
         var options = {
           title: 'Gender',
+          legend: { position: 'bottom', maxLines: 2 },
           pieHole: 0.5,
           slices: {
             0: { color: 'teal' },
             1: { color: 'purple' }
           }
         };
-
         var chart = new google.visualization.PieChart(document.getElementById('donutchart-gender'));
         chart.draw(data, options);
-      }      
-      
+      }    
+        
+     /*-----Minority Pie Chart-----*/ 
+     
 	 google.setOnLoadCallback(drawChart3);
-
-        function drawChart3() {
-        var data = google.visualization.arrayToDataTable([
+     function drawChart3() {
+      var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
           ['Underrepresented Minority', 33],
           ['Others', 67]
@@ -100,6 +96,7 @@
 
         var options = {
           title: 'Minority',
+          legend: { position: 'bottom', maxLines: 2 },
           pieHole: 0.5,
           slices: {
             0: { color: 'blue' },
@@ -111,31 +108,78 @@
         chart.draw(data, options);
       }   
       
-       google.setOnLoadCallback(drawChart4);
+    /*-----Funding Pie Chart-----*/ 
+    
+     google.setOnLoadCallback(drawChart4);
+     function drawChart4() {
+	        var data = google.visualization.arrayToDataTable([
+	          ['Task', 'Hours per Day'],
+	          ['Administration', 5],
+	          ['Cyberinfrastructure', 8],
+	          ['Education & Outreach', 22],
+	          ['Research', 65]
+	        ]);
+	
+	        var options = {
+	          title: 'Funding',
+	          pieHole: 0.5,
+	          slices: {
+	            0: { color: 'teal' },
+	            1: { color: 'gray' },
+	            2: { color: 'red' },
+	            3: { color: 'black' }
+	          }
+	        };
+	
+	        var chart = new google.visualization.PieChart(document.getElementById('donutchart-funding'));
+	        chart.draw(data, options);
+	  }   
+	  
+       /*-----Stacked Funding Chart-----*/ 
+       
+      google.load("visualization", '1.1', {packages:['corechart']});
+      google.setOnLoadCallback(drawChart5);
+      function drawChart5() {
 
-        function drawChart4() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Administration', 5],
-          ['Cyberinfrastructure', 8],
-          ['Education & Outreach', 22],
-          ['Research',      65]
-        ]);
+	      var data = google.visualization.arrayToDataTable([
+	        ['Year', 'Other NSF Funding', 'Co-Funded EPSCoR Awards', 'EPSCoR Awards' ],
+	        ['2000', 21, 0, 0, ],
+	        ['2001', 23, 1, 0, ],
+	        ['2002', 24, 3, 2, ],
+	        ['2003', 30, 4, 2, ],
+	        ['2004', 33, 5, 2, ],
+			['2004', 33, 5, 2, ],
+			['2005', 32, 6, 2, ],
+	        ['2006', 34, 6, 2, ],
+	        ['2007', 34, 7, 2, ],
+	        ['2008', 32, 6, 3, ],
+	        ['2009', 35, 5, 3, ],
+			['2010', 43, 5, 4, ],
+			['2011', 48, 5, 4, ],
+			['2012', 48, 5, 4, ],
+			['2013', 48, 4, 6, ],
+			['2014', 43, 5, 5, ],
+	      ]);
+	
+	      var options = {
+	      	title: "NM EPSCoR Funding (In Millions)",
+	        width: 1200,
+	        height: 600,
+	        legend: { position: 'top', maxLines: 3 },
+	        bar: { groupWidth: '85%' },
+	        isStacked: true,
+	        colors: ['#666', 'purple', 'cyan'],
+	      };
+	      var formatter = new google.visualization.NumberFormat(
+    			{prefix: '$', suffix: 'M', fractionDigits:'0'});
+				formatter.format(data, 1),
+				formatter.format(data, 2),
+				formatter.format(data, 3);
+				
+	      var chart = new google.visualization.ColumnChart(document.getElementById('stacked-funding-bar-chart'));
+	        chart.draw(data, options);
+     };  
 
-        var options = {
-          title: 'Funding',
-          pieHole: 0.5,
-          slices: {
-            0: { color: 'teal' },
-            1: { color: 'gray' },
-            2: { color: 'red' },
-            3: { color: 'black' }
-          }
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart-funding'));
-        chart.draw(data, options);
-      }   
       
     </script>
     
@@ -163,54 +207,45 @@
 	<!-- Metrics Intro -->
 			<div id="intro-metrics" >
 				<div class="content container 75%">
-					<header>
 					  <h1>Year 2 Metrics</h1>
-					</header>
 					<p>What good is a reward if you ain't around to use it? Besides, attacking that battle station ain't my idea of courage. 
 						It's more like suicide. All right. Well, take care of yourself, Han.</p> 
 				</div>
 			</div>
-
-			<div id="metrics-box-outer-even" >
-				<div id="metrics-box-inner-even">
-					<header>
+			
+			<!--Begin Publications -->
+			<div class="metrics-box-postcards">
+				<div class="metrics-box-inner">
 						<h2>Documents</h2>
-					</header>
-					
-					<!-- Bar Graph - Pubs, Proposals, and Presentations -->
-		    		<div id="columnchart_material" ></div>
-					</div>
+						<!-- Bar Graph - Pubs, Proposals, and Presentations -->
+			    		<div id="columnchart-publications"></div>
+				</div>
 			</div>
 			
 			<!--Begin Demographics -->
 
-           	<section id="metrics-box-outer-odd" >
-				<div id="metrics-box-inner-odd">
-					<header>
+           	<div class="metrics-box-postcards">
+				<div class="metrics-box-inner">
 						<h2>Demographics</h2>
-					</header>
-					
-					<!-- Donut Chart Gender-->
-		    		<div id="donutchart-gender" style="width: 700px; height: 500px;"></div>
-		    		
-		    		<!-- Donut Chart Minority-->
-		        	<div id="donutchart-minority" style="width: 700px; height: 500px;"></div>
+						<!-- Donut Chart Gender-->
+			    		<div id="donutchart-gender" style="width: 500px; height: 500px;"></div>
+			    		<!-- Donut Chart Minority-->
+			        	<div id="donutchart-minority" style="width: 500px; height: 500px;"></div>
 				</div>
-			</section>
+			</div>
 			
 			<!--Begin Funding -->
             
-			<section id="metrics-box-outer-even" >
-				<div id="metrics-box-inner-even">
-					<header>
+			<div class="metrics-box-postcards">
+				<div class="metrics-box-inner">
 						<h2>Funding</h2>
-					</header>
-					<!-- Donut Chart Funding-->
-	        		<div id="donutchart-funding" style="width: 700px; height: 500px;"></div>
-	
+						<!-- Donut Chart Funding-->
+		        		<div id="donutchart-funding" style="width: 700px; height: 500px;"></div>
+			        	<!--Begin Funding Stacked-->
+			        	<div id="stacked-funding-bar-chart" style="width: 1200px; height: 700px;"></div>
+
 				</div>
-			</section>
-           </div> 
+			</div>
 
 			<!-- Footer -->
 			<footer id="footer">
