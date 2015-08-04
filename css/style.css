@@ -1034,18 +1034,55 @@ p.underlined{
 
 /* Metrics page */
 	
-	#intro-metrics{
-		height: 20em;
-    	background: #B2B2B2;
-	}
-	
-	#intro-metrics h1{
-		color:#fff;
-		font-size:300%;
-		padding: 2em 0 1em 0;
-		text-align:center;
+#intro-metrics{
+	height: 20em;
+    background: #B2B2B2;
 }
-	.metrics-box-postcards{
+	
+#intro-metrics-soc-media{
+	height: 28em;
+	background:#333;
+	color:#fff;
+}
+	
+#intro-metrics h1{
+	color:#fff;
+	font-size:300%;
+	padding: 2em 0 1em 0;
+	text-align:center;
+}
+		
+#intro-metrics-soc-media h1{
+	color:#fff;
+	font-size:300%;
+	padding: 1em 0 1em 0;
+	text-align:center;
+		}
+
+.social-media-left{
+	width:35%;
+	float:left;
+}
+.social-media-right{
+	width:65%;
+	float:left;
+}
+
+p.clear-left{
+	margin-left:2.5em;
+	margin-top:.25em;
+}
+
+p.small-credit{
+	color:#ccc;
+	font-size:70%;
+}
+img.soc-media-icons{
+	padding-right:1em;
+}
+
+
+.metrics-box-postcards{
 		width:85%;
 		margin-left:auto;
 		margin-right:auto;
