@@ -1202,6 +1202,91 @@ img.soc-media-icons{
 }
 
 /*********************************************************************************/
+/* Education & Research Components Section                                       */
+/*********************************************************************************/
+
+	#NMISENet, #TeacherInst, #CreativeStartups {
+		
+		clear:both;
+		overflow:auto;		
+		text-align:center;
+		color:#fff;
+		background-image: radial-gradient(
+      	circle at top right,
+      	#666,
+      	#000
+    );
+ 
+	}
+
+	#NMISENet h2, #TeacherInst h2, #CreativeStartups h2 {
+		letter-spacing:normal;
+		text-align:center;
+		color:#fff;
+		/*font-weight:400;*/
+		padding-top:1em;
+		font-size:350%;
+	}
+	
+	#STEMAP, #FLPDI, #GUTC, #Seed {
+	
+		clear:both;
+		overflow:auto;
+		text-align:center;
+		color:#fff;
+		background-image: radial-gradient(
+      	circle at top right,
+      	#ececec,
+      	#000
+    );
+	}
+	
+	#STEMAP h2, #FLPDI h2, #GUTC h2, #Seed h2 {
+		letter-spacing:normal;
+		text-align:center;
+		color:#fff;
+		/*font-weight:400;*/
+		padding-top:1em;
+		font-size:350%;
+	}
+	
+.sci-section-footers{
+		background:#FF4500;
+		float:left;
+		margin-left:auto;
+		margin-right:auto;
+		position:relative;
+		width:100%;
+		z-index:999;
+		text-align:center;
+		position:relative;
+		
+}
+
+.top{
+	float:left;
+}
+
+.sci-section-footers .float-left{
+	float:left;
+	font-size:12px;
+	width:25%;
+	font-weight:bold;
+	margin-left:4em;
+	text-transform: uppercase;
+}
+
+#triangle-facing-right {
+    float:left;
+    color:#fff;
+    border-right: 4px solid; 
+    border-bottom: 4px solid;
+    width: 10px; height: 10px;
+    transform: rotate(-45deg);
+}
+
+
+/*********************************************************************************/
 /* Work                                                                          */
 /*********************************************************************************/
 
