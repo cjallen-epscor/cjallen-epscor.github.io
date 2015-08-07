@@ -966,6 +966,32 @@ p.underlined{
 	#science-components li{
 		text-align:center;
 	}
+	
+/*********************************************************************************/
+/*********************************************************************************/
+	#edu-components{
+		height:24em;
+		width:100%;
+		color:#999;
+	}
+
+	#edu-components a{
+		
+		color:#999;
+	}
+		
+	#edu-components h2 {
+		text-align:center;
+		color:#999;
+		font-size:250%;
+		font-weight:300;
+		letter-spacing:0;
+	}
+		
+	#edu-components li{
+		text-align:center;
+	}
+
 
 /*********************************************************************************/
 /* Education & Outreach Section                                                  */
