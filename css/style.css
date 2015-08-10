@@ -970,7 +970,7 @@ p.underlined{
 /*********************************************************************************/
 /*********************************************************************************/
 	#edu-components{
-		height:24em;
+		height:27em;
 		width:100%;
 		color:#999;
 	}
@@ -1231,7 +1231,7 @@ img.soc-media-icons{
 /* Education & Research Components Section                                       */
 /*********************************************************************************/
 
-	#NMISENet, #TeacherInst, #CreativeStartups {
+	#NMISENet, #TeacherInst, #CreativeStartups, #PostDoc {
 		
 		clear:both;
 		overflow:auto;		
@@ -1245,7 +1245,7 @@ img.soc-media-icons{
  
 	}
 
-	#NMISENet h2, #TeacherInst h2, #CreativeStartups h2 {
+	#NMISENet h2, #TeacherInst h2, #CreativeStartups h2, #PostDoc h2 {
 		letter-spacing:normal;
 		text-align:center;
 		color:#fff;
