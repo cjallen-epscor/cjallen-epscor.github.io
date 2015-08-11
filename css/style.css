@@ -1674,6 +1674,16 @@ a.highlight-button:hover{
 	letter-spacing:0;
 }
 
+.video-highlight-button{
+	background:#FF4500;
+	padding:.5em;
+	font-size:14px;
+	border:none;
+	color:#fff;
+	clear:both;
+	letter-spacing:0;
+}
+
 /*********************************************************************************/
 /* Touch Mode                                                                    */
 /*********************************************************************************/
@@ -2056,4 +2066,51 @@ a.highlight-button:hover{
 		background: url('img/icons@2x.png');
 		background-size: 100%;
 	}
+}
+/*Pop up video styles*/
+
+.my-video-button{
+	background:  #FF4500;
+	border:none; 
+	cursor: pointer;
+	clear:both;
+	font-size:14px;
+}
+
+.element_to_pop_up_video { 
+    background-color:#fff;
+    color:#000;
+    display:none; 
+    padding:.5em;
+    min-width:300px;
+    min-height: 200px;
+    box-shadow: rgb(0, 0, 0) 0px 0px 20px 4px;
+}
+
+.element_to_pop_up_video .button {
+	 cursor: pointer;
+    background-color: #FF4500;
+    /*border-radius: 1.5em;*/
+    display: inline-block;
+    padding: .25em;
+    text-decoration: none;
+    height:auto;
+    color: #FFF;
+    cursor: pointer;
+    text-align: center;
+     padding-left:.4em;
+    padding-right:.4em;
+     position: absolute;
+    right: -40px;
+    top: -40px;
+    font: bold 130% sans-serif;
+
+}
+.element_to_pop_up_video .b-close, 
+{
+    border-radius: 1.5em;
+    box-shadow: none;
+    position: absolute;
+    right: -40px;
+    top: -40px;
 }

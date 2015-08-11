@@ -21,19 +21,23 @@
 
    		<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
 
-
+		<link href="src/jquery-video-lightning.css" rel="stylesheet" type="text/css">
+		
 		<noscript>
-			
 			<link rel="stylesheet" href="css/skel.css" />
 			<link rel="stylesheet" href="css/style.css" />
 			<link rel="stylesheet" href="css/style-wide.css" />
 			<link rel="stylesheet" href="css/style-normal.css" />
 			<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.6/slick.css"/>
-
 		</noscript>
+		
 		<script src="//code.jquery.com/jquery-latest.min.js"></script>
 		<script src="//unslider.com/unslider.min.js"></script>
-
+		
+	<!-- jQuery library (served from Google) -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="js/jquery.bpopup.min.js"></script>
+	
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 	
@@ -196,7 +200,7 @@
               <!-- STEMAP -->
 			<section id="STEMAP" >
 				<h2>STEM Advancement Program</h2>
-					<p class="underlined">June 2, 2014&ndash;July 30, 2014<br/>New Mexico Tech, New Mexico State University, University of New Mexico </p>
+					<p class="underlined">June 2, 2014&ndash; July 30, 2014<br/>New Mexico Tech, New Mexico State University, University of New Mexico </p>
 				
 			<!--Slider Section -->	
 				<div class="banner">
@@ -218,8 +222,37 @@
 				<!-- End Slider Section -->		
 				<div class="block-3">
 					<h4>Bringing hands-on STEM research and education to rural and native colleges in New Mexico</h4>
-				<a href="https://youtu.be/EPGbgY1LgjA?list=PLr7S80asPQD641aSs1IsCJZGCj0lLSugq" class="highlight-button">Click to Watch the STEMAP Recruitment Video</a>
-				</div>
+				<!-- Video popup -->	
+				<!-- Div that triggers the CONNECT popup -->
+			 		<div class="my-video-button">Click to Watch the <br>STEMAP Recruitment Video</div>
+					<!-- Element to pop up -->
+					<div class="element_to_pop_up_video">
+			        <span class="button b-close"><span>X</span></span>    
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/EPGbgY1LgjA" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</div>
+					<script>
+						// Video Popup Script
+			    		// Semicolon (;) to ensure closing of earlier scripting
+			    		// Encapsulation
+			    		// $ is assigned to jQuery
+			    		;(function($) {
+			        	 // DOM Ready
+			        	$(function() {
+						// Binding a click event
+				        // From jQuery v.1.7.0 use .on() instead of .bind()
+				            $('.my-video-button').bind('click', function(e) {
+				                // Prevents the default action to be triggered. 
+				                e.preventDefault();
+				                // Triggering bPopup when click event is fired
+				                $('.element_to_pop_up_video').bPopup();
+				                
+				                
+			            });
+			        });
+			    })(jQuery);
+			</script>
+
 				
 				<div class="block-9">
 				<p>The STEM Advancement Program (STEMAP) engages students from New Mexico regional universities, community colleges and tribal colleges in the research funded
@@ -291,9 +324,7 @@
 					<div class="float-left"><a href="#">DOWNLOAD STEMAP PDF</a></div>	
 				 	<div class="float-left"><a href="#FLPDI">NEXT</a></div>
  			</div>     
-            
-            
-            
+
            <!-- Faculty Leadership Program -->
 			<section id="FLPDI" >
 				<h2>Faculty Leadership &amp; Professional Development </h2>
@@ -319,11 +350,17 @@
 				<!-- End Slider Section -->		
 				<div class="block-3">
 					<h4>Helping undergraduate faculty learn new techniques to retain diverse students in STEM</h4>
-				<a href="https://youtu.be/EPGbgY1LgjA?list=PLr7S80asPQD641aSs1IsCJZGCj0lLSugq" class="highlight-button">
-					Click to Watch the STEMAP Recruitment Video</a>
+				<!-- Video popup -->	
+				<!-- Div that triggers the CONNECT popup -->
+			 		<div class="my-video-button">Click to Watch the <br>STEMAP Recruitment Video</div>
+					<!-- Element to pop up -->
+					<div class="element_to_pop_up_video">
+			        <span class="button b-close"><span>X</span></span>    
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/EPGbgY1LgjA" frameborder="0" allowfullscreen></iframe>
+			</div>
 				</div>
-				
-				<div class="block-9">
+
+			<div class="block-9">
 				<p>For two days in September 2014, the Faculty Leadership and Professional Development Institute (FLPDI) continued to work 
 					with new curriculum from Micromessaging to Reach and Teach Every Student&trade; from the National Alliance for Partnerships 
 					in Equity (NAPE). Undergraduate faculty from 12 institutions learned to use research-tested pedagogy that improves enrollment, 
@@ -526,8 +563,7 @@
 					dots: true,               //  Display dot navigation
 					fluid: false              //  Support responsive design. May break non-responsive designs
 				});
-		
-			</script>
-
+				</script>
+			
 	</body>
 </html>
