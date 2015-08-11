@@ -33,24 +33,13 @@
 		<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.6/slick.css"/>
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+	
+		
+
 
 	</head>
 	<body>
-	<!-- Slider script -->
-			<script>
-				if(window.chrome) {
-					$('.banner li').css('background-size', '100% 100%');
-				}
-				
-				$('.banner').unslider({
-					speed:500,               //  The speed to animate each slide (in milliseconds)
-					delay: 5000,              //  The delay between slide animations (in milliseconds)
-					complete: function() {},  //  A function that gets called after every slide animation
-					keys: true,               //  Enable keyboard (left, right) arrow shortcuts
-					dots: true,               //  Display dot navigation
-					fluid: false              //  Support responsive design. May break non-responsive designs
-				});
-			</script>
+
 		<!-- Header -->
 	<header id="header">
 
@@ -238,28 +227,7 @@
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/EPGbgY1LgjA" frameborder="0" allowfullscreen></iframe>
 			</div>
 		</div>
-					<script>
-						// Video Popup Script
-			    		// Semicolon (;) to ensure closing of earlier scripting
-			    		// Encapsulation
-			    		// $ is assigned to jQuery
-			    		;(function($) {
-			        	 // DOM Ready
-			        	$(function() {
-						// Binding a click event
-				        // From jQuery v.1.7.0 use .on() instead of .bind()
-				            $('.my-video-button').bind('click', function(e) {
-				                // Prevents the default action to be triggered. 
-				                e.preventDefault();
-				                // Triggering bPopup when click event is fired
-				                $('.element_to_pop_up_video').bPopup();
-				                
-				                
-			            });
-			        });
-			    })(jQuery);
-			</script>
-
+					
 				
 				<div class="block-9">
 				<p>The STEM Advancement Program (STEMAP) engages students from New Mexico regional universities, community colleges and tribal colleges in the research funded
@@ -556,7 +524,42 @@
 					</ul>
 			</footer>
 			
-		
+			<!-- Slider script -->
+			<script>
+				if(window.chrome) {
+					$('.banner li').css('background-size', '100% 100%');
+				}
+				
+				$('.banner').unslider({
+					speed:500,               //  The speed to animate each slide (in milliseconds)
+					delay: 5000,              //  The delay between slide animations (in milliseconds)
+					complete: function() {},  //  A function that gets called after every slide animation
+					keys: true,               //  Enable keyboard (left, right) arrow shortcuts
+					dots: true,               //  Display dot navigation
+					fluid: false              //  Support responsive design. May break non-responsive designs
+				});
+			</script>
+			<!-- Video Pop Script -->
+			<script>
+			// Video Popup Script
+			  // Semicolon (;) to ensure closing of earlier scripting
+			    // Encapsulation
+			    	// $ is assigned to jQuery
+			    		;(function($) {
+			        	 // DOM Ready
+			        	$(function() {
+						// Binding a click event
+				        // From jQuery v.1.7.0 use .on() instead of .bind()
+				            $('.my-video-button').bind('click', function(e) {
+				                // Prevents the default action to be triggered. 
+				                e.preventDefault();
+				                // Triggering bPopup when click event is fired
+				                $('.element_to_pop_up_video').bPopup();
+  
+			            });
+			        });
+			    })(jQuery);
+			</script>
 			
 	</body>
 </html>
