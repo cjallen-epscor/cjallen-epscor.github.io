@@ -19,7 +19,7 @@
 		<script src="js/init.js"></script>
 		<script src="http://cdn.jsdelivr.net/jquery.slick/1.5.6/slick.min.js"></script>
    		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script src="js/unslider.min.js"></script>
+		<script src="http://unslider.com/unslider.min.js"></script>
 		<!-- jQuery library (served from Google) -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script src="js/jquery.bpopup.min.js"></script>
@@ -33,11 +33,27 @@
 		<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.6/slick.css"/>
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-	
-		
-
-
-	</head>
+	<script>
+			
+			  // Semicolon (;) to ensure closing of earlier scripting
+			    // Encapsulation
+			    	// $ is assigned to jQuery
+			    		(function($) {
+			        	 // DOM Ready
+			        	$(function() {
+						// Binding a click event
+				        // From jQuery v.1.7.0 use .on() instead of .bind()
+				            $('.my-video-button').bind('click', function(e) {
+				                // Prevents the default action to be triggered. 
+				                e.preventDefault();
+				                // Triggering bPopup when click event is fired
+				                $('.element_to_pop_up_video').bPopup();
+  
+			            });
+			        });
+			    })(jQuery);
+			</script>
+</head>
 	<body>
 
 		<!-- Header -->
@@ -66,11 +82,13 @@
 					  <h1>Education &amp; Outreach </h1>
 					</header>
 					<p>Part of <i>Energize New Mexico</i>'s vision includes creating a well-qualified STEM workforce while promoting a culture of innovation and 
-						entrepreneurship. The Education &amp; Outreach programs in <i>Energize New Mexico</i> provide activities that engage and support learners at all educational levels, leading to a diverse future in STEM. In addition to the training university students receive through their participation in the interdisciplinary research teams, NM EPSCoR is forming partnerships that enhance STEM education at all academic levels, and develop the state's environment for entrepreneurship, further bolstering New Mexico's STEM workforce.</p>
+						entrepreneurship. The Education &amp; Outreach programs in <i>Energize New Mexico</i> provide activities that engage and support learners at all 
+						educational levels, leading to a diverse future in STEM. In addition to the training university students receive through their participation 
+						in the interdisciplinary research teams, NM EPSCoR is forming partnerships that enhance STEM education at all academic levels, and develop the 
+						state's environment for entrepreneurship, further bolstering New Mexico's STEM workforce.</p>
 					
 				</div>
 			</section>
-
 	
 		<!-- Education & Outreach Components -->
 			<section id="edu-components" class="main style2 left dark fullscreen">
@@ -145,7 +163,7 @@
      <!-- Summer Teacher Institute -->
 			<section id="TeacherInst" >
 				<h2>2014 Summer Teacher Institute</h2>
-					<p class="underlined">June 9, 2014&ndash; June 13, 2014<br/>New Mexico Informal Science Education Network</p>
+					<p class="underlined">June 9, 2014 &ndash; June 13, 2014<br/>New Mexico Informal Science Education Network</p>
 				
 			<!--Slider Section -->	
 				<div class="banner">
@@ -226,8 +244,7 @@
 			        <span class="button b-close"><span>X</span></span>    
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/EPGbgY1LgjA" frameborder="0" allowfullscreen></iframe>
 			</div>
-		</div>
-					
+		</div>	
 				
 				<div class="block-9">
 				<p>The STEM Advancement Program (STEMAP) engages students from New Mexico regional universities, community colleges and tribal colleges in the research funded
@@ -540,26 +557,7 @@
 				});
 			</script>
 			<!-- Video Pop Script -->
-			<script>
-			// Video Popup Script
-			  // Semicolon (;) to ensure closing of earlier scripting
-			    // Encapsulation
-			    	// $ is assigned to jQuery
-			    		;(function($) {
-			        	 // DOM Ready
-			        	$(function() {
-						// Binding a click event
-				        // From jQuery v.1.7.0 use .on() instead of .bind()
-				            $('.my-video-button').bind('click', function(e) {
-				                // Prevents the default action to be triggered. 
-				                e.preventDefault();
-				                // Triggering bPopup when click event is fired
-				                $('.element_to_pop_up_video').bPopup();
-  
-			            });
-			        });
-			    })(jQuery);
-			</script>
+			
 			
 	</body>
 </html>
