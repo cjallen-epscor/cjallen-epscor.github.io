@@ -1047,16 +1047,16 @@ p.underlined{
 /* Metrics Section                                                               */
 /*********************************************************************************/
 
-	#metrics {
-		background: url('images/overlay.png');
-		background-size: 256px 256px, cover;
-		background-attachment: fixed, fixed;
-		background-position: top left, center center;
-	}
+#metrics {
+	background: url('images/overlay.png');
+	background-size: 256px 256px, cover;
+	background-attachment: fixed, fixed;
+	background-position: top left, center center;
+}
 
-	#metrics a{
-		color:#666;
-	}
+#metrics a{
+	color:#666;
+}
 
 /* Metrics page */
 	
@@ -1083,7 +1083,7 @@ p.underlined{
 	font-size:300%;
 	padding: 1em 0 1em 0;
 	text-align:center;
-		}
+}
 
 .social-media-left{
 	width:35%;
@@ -1107,101 +1107,125 @@ img.soc-media-icons{
 	padding-right:1em;
 }
 
-
 .metrics-box-postcards{
-		width:85%;
-		margin-left:auto;
-		margin-right:auto;
-		padding:1em;
-		clear:both;
-		border-bottom:solid thick #ccc;
-	}
-	
-	.metrics-box-inner {
-		width:100%;
-		position:relative;
-		margin-left:auto;
-		margin-right:auto;
-	}
-	.metrics-box-inner h2{
-		padding-top:1em;
-		text-align:center;
-		clear:both;
-	}
+	width:85%;
+	height:auto;
+	margin-left:auto;
+	margin-right:auto;
+	padding:1em;
+	clear:both;
+	border-bottom:solid thick #ccc;
+}
 
-	/*donut charts */
+.metrics-box-postcards-funding{
+	width:85%;
+	height:auto;
+	margin-left:auto;
+	margin-right:auto;
+	clear:both;
+	border-top:solid thick #ccc;
+}
+
+.metrics-box-postcards-demo{
+	width:85%;
+	height:auto;
+	margin-left:auto;
+	margin-right:auto;
+	padding:1em;
+	clear:both;
+}
 	
-	#donutchart-minority{
-		display:block;
-		float:left
-		width:50%;		
-	}
+.metrics-box-inner {
+	width:100%;
+	position:relative;
+	margin-left:auto;
+	margin-right:auto;
+}
 	
-	#donutchart-gender{
-		float:right;
-		display:block;
-		width:50%;	
-	}
+.metrics-box-inner h2{
+	padding-top:1em;
+	text-align:center;
+	clear:both;
+}
+
+/*donut charts */
+	
+#donutchart-minority{
+	display:block;
+	width:47%;
+	float:left;	
+	clear:none;	
+}
+	
+#donutchart-gender{
+	display:block;	
+	float:left;	
+	clear:none;
+	display:block;
+	width:47%;	
+}
+
+#stacked-funding-bar-chart{
+	width:100%;
+}
 
 /*********************************************************************************/
 /* Science Components Section                                                    */
 /*********************************************************************************/
 
-	#bioalgal, #solar, #soc-nexus {
+#bioalgal, #solar, #soc-nexus {
 		
-		clear:both;
-		overflow:auto;		
-		text-align:center;
-		color:#fff;
-		background-image: radial-gradient(
-      	circle at top right,
+	clear:both;
+	overflow:auto;		
+	text-align:center;
+	color:#fff;
+	background-image: 
+		radial-gradient(
+		circle at top right,
       	#666,
-      	#000
-    );
- 
-	}
+      	#000);
+}
 
-	#bioalgal h2, #solar h2, #soc-nexus h2 {
-		letter-spacing:normal;
-		text-align:center;
-		color:#fff;
-		/*font-weight:400;*/
-		padding-top:1em;
-		font-size:350%;
-	}
+#bioalgal h2, #solar h2, #soc-nexus h2 {
+	letter-spacing:normal;
+	text-align:center;
+	color:#fff;
+	/*font-weight:400;*/
+	padding-top:1em;
+	font-size:350%;
+}
 	
-	#geothermal, #uranium, #osmotic {
+#geothermal, #uranium, #osmotic {
+	clear:both;
+	overflow:auto;
+	text-align:center;
+	color:#fff;
+	background-image: 
+	radial-gradient(
+       circle at top right,
+       #ececec,
+       #000);
+}
 	
-		clear:both;
-		overflow:auto;
-		text-align:center;
-		color:#fff;
-		background-image: radial-gradient(
-      	circle at top right,
-      	#ececec,
-      	#000
-    );
-	}
-	
-	#geothermal h2, #uranium h2, #osmotic h2{
-		letter-spacing:normal;
-		text-align:center;
-		color:#fff;
-		/*font-weight:400;*/
-		padding-top:1em;
-		font-size:350%;
-	}
+#geothermal h2, #uranium h2, #osmotic h2{
+	letter-spacing:normal;
+	text-align:center;
+	color:#fff;
+	/*font-weight:400;*/
+	padding-top:1em;
+	font-size:350%;
+}
 	
 .sci-section-footers{
-		background:#FF4500;
-		float:left;
-		margin-left:auto;
-		margin-right:auto;
-		position:relative;
-		width:100%;
-		z-index:999;
-		text-align:center;
-		position:relative;
+	background:#FF4500;
+	float:left;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+	width:100%;
+	z-index:999;
+	text-align:center;
+	position:relative;
 		
 }
 

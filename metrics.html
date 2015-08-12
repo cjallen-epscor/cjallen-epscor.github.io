@@ -32,7 +32,9 @@
 	
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-	
+	<!--Load JQuery-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">
     
@@ -54,13 +56,19 @@
             
           },
           	height: 400,
-              colors: ['#f98212', '#5b4e97', '#7570b3','#38b8c6'],
-              		  /*^ Target Bar , ^ Actual, etc*/
+          	width:"100%",
+            colors: ['#f98212', '#5b4e97', '#7570b3','#38b8c6'],
+              		  
         };
       
 		var chart = new google.charts.Bar(document.getElementById('columnchart-publications'));
         chart.draw(data, options);
       }
+      
+      $(window).resize(function(){
+  		drawChart();
+		});	
+		
       google.load("visualization", "1.1", {packages:["bar", "corechart"]});
 	
 	/*-----Gender Pie Chart-----*/ 
@@ -73,6 +81,8 @@
           ['Female', 46]
         ]);
         var options = {
+          width: "100%",
+          height:"500",
           title: 'Gender',
           legend: { position: 'bottom', maxLines: 2 },
           pieHole: 0.5,
@@ -84,7 +94,9 @@
         var chart = new google.visualization.PieChart(document.getElementById('donutchart-gender'));
         chart.draw(data, options);
       }    
-        
+         $(window).resize(function(){
+  		drawChart2();
+		});	
      /*-----Minority Pie Chart-----*/ 
      
 	 google.setOnLoadCallback(drawChart3);
@@ -96,6 +108,8 @@
         ]);
 
         var options = {
+          width: "100%",
+          height:"500",
           title: 'Minority',
           legend: { position: 'bottom', maxLines: 2 },
           pieHole: 0.5,
@@ -108,7 +122,9 @@
         var chart = new google.visualization.PieChart(document.getElementById('donutchart-minority'));
         chart.draw(data, options);
       }   
-      
+      $(window).resize(function(){
+  		drawChart3();
+		});		
     /*-----Funding Pie Chart-----*/ 
     
      google.setOnLoadCallback(drawChart4);
@@ -122,6 +138,8 @@
 	        ]);
 	
 	        var options = {
+	          width: "100%",
+          	  height:"500",
 	          title: 'Funding',
 	          pieHole: 0.5,
 	          slices: {
@@ -135,7 +153,9 @@
 	        var chart = new google.visualization.PieChart(document.getElementById('donutchart-funding'));
 	        chart.draw(data, options);
 	  }   
-	  
+	   $(window).resize(function(){
+  		drawChart4();
+		});	
        /*-----Stacked Funding Chart-----*/ 
        
       google.load("visualization", '1.1', {packages:['corechart']});
@@ -164,7 +184,7 @@
 	
 	      var options = {
 	      	title: "NM EPSCoR Funding (In Millions)",
-	        width: 1200,
+	        width: "100%",
 	        height: 600,
 	        legend: { position: 'top', maxLines: 3 },
 	        bar: { groupWidth: '85%' },
@@ -179,6 +199,10 @@
 				
 	      var chart = new google.visualization.ColumnChart(document.getElementById('stacked-funding-bar-chart'));
 	        chart.draw(data, options);
+	       
+	       $(window).resize(function(){
+  		   drawChart5();
+		   });	
      };  
 
       
@@ -244,25 +268,25 @@
 			
 			<!--Begin Demographics -->
 
-           	<div class="metrics-box-postcards">
+           	<div class="metrics-box-postcards-demo">
 				<div class="metrics-box-inner">
 						<h2>Demographics</h2>
 						<!-- Donut Chart Gender-->
-			    		<div id="donutchart-gender" style="width: 500px; height: 500px;"></div>
+			    		<div id="donutchart-gender"></div>
 			    		<!-- Donut Chart Minority-->
-			        	<div id="donutchart-minority" style="width: 500px; height: 500px;"></div>
+			        	<div id="donutchart-minority"></div>
 				</div>
 			</div>
 			
 			<!--Begin Funding -->
             
-			<div class="metrics-box-postcards">
+			<div class="metrics-box-postcards-funding">
 				<div class="metrics-box-inner">
 						<h2>Funding</h2>
 						<!-- Donut Chart Funding-->
-		        		<div id="donutchart-funding" style="width: 700px; height: 500px;"></div>
+		        		<div id="donutchart-funding"></div>
 			        	<!--Begin Funding Stacked-->
-			        	<div id="stacked-funding-bar-chart" style="width: 1200px; height: 700px;"></div>
+			        	<div id="stacked-funding-bar-chart" ></div>
 
 				</div>
 			</div>
