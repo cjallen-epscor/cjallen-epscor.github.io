@@ -1064,6 +1064,12 @@ p.underlined{
 	height: 20em;
     background: #B2B2B2;
 }
+
+#intro-metrics p{
+		color:#fff;
+		text-align:center;
+		font-size:125%;
+}
 	
 #intro-metrics-soc-media{
 	height: 28em;
