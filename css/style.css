@@ -64,6 +64,10 @@
 		letter-spacing: -2px;
 		line-height: 1.25em;
 	}
+	
+	h2.padded-left{
+		margin-left:1.5em;
+	}
 
 	strong, b {
 		font-weight: 900;
@@ -1101,7 +1105,7 @@ p.underlined{
 }
 
 p.clear-left{
-	margin-left:2.5em;
+	margin-left:0;
 	margin-top:.35em;
 }
 
