@@ -1275,7 +1275,14 @@ img.soc-media-icons{
 	text-transform: uppercase;
 }
 
-
+.homepage-footer-banner .float-left-50{
+	float:left;
+	font-size:13px;
+	width:45%;
+	font-weight:bold;
+	margin-left:4em;
+	text-transform: uppercase;
+}
 
 
 
