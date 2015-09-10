@@ -1239,6 +1239,8 @@ img.soc-media-icons{
 		
 }
 
+
+
 .top{
 	float:left;
 }
@@ -1251,6 +1253,31 @@ img.soc-media-icons{
 	margin-left:4em;
 	text-transform: uppercase;
 }
+
+.homepage-footer-banner{
+	background:teal;
+	float:left;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+	width:100%;
+	z-index:999;
+	text-align:center;
+	position:relative;
+}
+
+.homepage-footer-banner .float-left{
+	float:left;
+	font-size:13px;
+	width:25%;
+	font-weight:bold;
+	margin-left:4em;
+	text-transform: uppercase;
+}
+
+
+
+
 
 #triangle-facing-right {
     float:left;
@@ -1444,6 +1471,7 @@ img.soc-media-icons{
 		color: #999;
 		color: rgba(185,186,187,0.5);
 		overflow: hidden;
+		clear:left;
 	}
 
 		#footer a {
