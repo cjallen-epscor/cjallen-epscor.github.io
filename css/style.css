@@ -212,7 +212,6 @@
 		img.responsive{
 			float:left;
 			width:100%;
-			
 			position:relative;
 		
 		}
@@ -1033,10 +1032,10 @@ p.underlined{
 
 	
 /*********************************************************************************/
-/* Cyberfrastructure Section                                                     */
+/* Diversity Section                                                     */
 /*********************************************************************************/
 
-	#ci {
+	#diversity {
 		background: url('images/overlay.png'), url('../images/intro2.png');
 		background-size: 256px 256px, cover;
 		background-attachment: fixed, fixed;
@@ -1050,9 +1049,9 @@ p.underlined{
 		background-position: top left, center center;
 	}
 	
-	/*Cyberinfrastructure links*/
+	/*Diversity links*/
 	
-	#ci a{
+	#diversity a{
 		color:#666;
 	}
 /*********************************************************************************/
