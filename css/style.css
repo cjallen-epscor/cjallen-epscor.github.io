@@ -208,6 +208,14 @@
 					margin: 0 auto;
 					width: auto;
 				}
+				
+		img.responsive{
+			float:left;
+			width:100%;
+			
+			position:relative;
+		
+		}
 
 	/* List */
 
