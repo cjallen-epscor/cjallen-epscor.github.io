@@ -1819,10 +1819,13 @@ a.highlight-button:hover{
 }
 
 .banner p{
+	width:100%;
 	color:#fff;
 	text-shadow:none;
 	background:#000;
 	opacity: .7;
+	position:absolute;
+	bottom:4em;
 }
 .banner ul {
 		list-style: none;
@@ -1830,11 +1833,12 @@ a.highlight-button:hover{
 	}
 	
 .banner ul li {
+		position: relative;
 		display: block;
 		float: left;
 		width: 33%;
 		padding: 160px 0 110px;
-		min-height: 350px;
+		min-height: 400px;
 /*		-webkit-background-size: 100% 100%;*/
 		-moz-background-size: 100% 100%;
 		-o-background-size: 100% 100%;
@@ -1849,6 +1853,9 @@ a.highlight-button:hover{
 		background:#000;
 		opacity: .7;
 		color: #fff;
+		position:absolute;
+		bottom:2.85em;	
+		width:100%;	
 	}
 	
 .banner .btn {
