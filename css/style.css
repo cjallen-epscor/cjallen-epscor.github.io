@@ -871,6 +871,7 @@ p.underlined{
 		top: 0;
 		height: 3em;
 		line-height: 3em;
+		
 	}
 
 		#nav ul {
@@ -892,12 +893,32 @@ p.underlined{
 					padding: 0 0.5em 0 0.5em;
 					outline: 0;
 					border-bottom:none;
+					
 				}
 				
 				#nav ul li a:hover {
 					
 					border-bottom:solid thin #666;
 				}
+@media only screen and (max-width: 889px) {
+
+   #nav ul li a  { 
+   		font-size: 80%; 
+   		padding: 0 0.25em 0 0.25em;
+
+   }
+
+}
+
+@media only screen and (min-width: 890px) {
+
+   #nav ul li a  { 
+   		font-size: 100%; 
+   		padding: 0 0.25em 0 0.25em;
+
+   }
+
+}
 
 
 
@@ -924,21 +945,27 @@ p.underlined{
 		background-attachment: fixed, fixed;
 		background-position: top left, bottom center;
 		background-repeat: repeat, no-repeat;*/
-		height:28em;
+		height:auto;
 		background:#B2B2B2;
+		
 	}
 
 	#intro-science h1{
 		color:#fff;
 		font-size:300%;
-		padding: 2em 0 1em 0;
+		padding: 1em 0 .35em 0;
 		text-align:center;
 }
 
+
+
 	#intro-science p{
 		color:#fff;
+		word-wrap: break-word;
 		text-align:center;
 		font-size:125%;
+		padding: 0 0 1em 0;
+		
 }
 
 	#science {
