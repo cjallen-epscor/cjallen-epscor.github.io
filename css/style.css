@@ -903,7 +903,7 @@ p.underlined{
 @media only screen and (max-width: 889px) {
 
    #nav ul li a  { 
-   		font-size: 80%; 
+   		font-size: 95%; 
    		padding: 0 0.25em 0 0.25em;
 
    }
@@ -913,7 +913,7 @@ p.underlined{
 @media only screen and (min-width: 890px) {
 
    #nav ul li a  { 
-   		font-size: 100%; 
+   		font-size: 115%; 
    		padding: 0 0.25em 0 0.25em;
 
    }
@@ -1852,7 +1852,7 @@ a.highlight-button:hover{
 	background:#000;
 	opacity: .7;
 	position:absolute;
-	bottom:4em;
+	top:17em;
 }
 .banner ul {
 		list-style: none;
@@ -1881,7 +1881,7 @@ a.highlight-button:hover{
 		opacity: .7;
 		color: #fff;
 		position:absolute;
-		bottom:2.85em;	
+		top:6.35em;
 		width:100%;	
 	}
 	
@@ -1924,7 +1924,7 @@ a.highlight-button:hover{
 		position: absolute;
 		left: 0;
 		right: 0;
-		bottom: 20px;
+		bottom: -1em;
 	}
 		
 .banner .dots li {
