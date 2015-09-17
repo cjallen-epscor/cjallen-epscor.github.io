@@ -976,11 +976,16 @@ p.underlined{
 	}
 	
 	
-	@media only screen and (max-width: 890px) {
+	@media  (max-width: 768px) {
 
-   #intro-science h1,#edu-components h2, #science-components h2   { 
-   	font-size:175%;
-
+   #intro-science h1, #edu-components h2, 
+   #science-components h2, #NMISENet h2, 
+   #TeacherInst h2, #CreativeStartups h2, 
+   #PostDoc h2, #STEMAP h2, #FLPDI h2, 
+   #GUTC h2, #Seed h2, #bioalgal h2, #solar h2, #soc-nexus h2 ,
+   #geothermal h2, #uranium h2, #osmotic h2 { 
+   	font-size:275%;
+	padding-top:.5em;
    }
 
 }
@@ -1242,14 +1247,16 @@ img.soc-media-icons{
       	#666,
       	#000);
 }
-
+@media  (min-width: 769px) 
+	{
 #bioalgal h2, #solar h2, #soc-nexus h2 {
 	letter-spacing:normal;
 	text-align:center;
 	color:#fff;
 	/*font-weight:400;*/
-	padding-top:1em;
+	padding-top:.5em;
 	font-size:350%;
+}
 }
 	
 #geothermal, #uranium, #osmotic {
@@ -1263,7 +1270,8 @@ img.soc-media-icons{
        #ececec,
        #000);
 }
-	
+	@media  (min-width: 891px) 
+	{
 #geothermal h2, #uranium h2, #osmotic h2{
 	letter-spacing:normal;
 	text-align:center;
@@ -1271,20 +1279,9 @@ img.soc-media-icons{
 	/*font-weight:400;*/
 	padding-top:1em;
 	font-size:350%;
+	}
 }
 	
-.sci-section-footers{
-	background:#FF4500;
-	float:left;
-	margin-left:auto;
-	margin-right:auto;
-	position:relative;
-	width:100%;
-	z-index:999;
-	text-align:center;
-	position:relative;
-		
-}
 
 
 
@@ -1292,14 +1289,6 @@ img.soc-media-icons{
 	float:left;
 }
 
-.sci-section-footers .float-left{
-	float:left;
-	font-size:12px;
-	width:25%;
-	font-weight:bold;
-	margin-left:4em;
-	text-transform: uppercase;
-}
 
 .homepage-footer-banner{
 	background:teal;
@@ -1360,15 +1349,17 @@ img.soc-media-icons{
  
 	}
 
+@media  (min-width: 769px) {
+
 	#NMISENet h2, #TeacherInst h2, #CreativeStartups h2, #PostDoc h2 {
 		letter-spacing:normal;
 		text-align:center;
 		color:#fff;
 		/*font-weight:400;*/
-		padding-top:1em;
-		font-size:350%;
+		padding-top:.5em;
+		font-size:325%;
 	}
-	
+}
 	#STEMAP, #FLPDI, #GUTC, #Seed {
 	
 		clear:both;
@@ -1381,7 +1372,8 @@ img.soc-media-icons{
       	#000
     );
 	}
-	
+@media  (min-width: 769px) 
+	{	
 	#STEMAP h2, #FLPDI h2, #GUTC h2, #Seed h2 {
 		letter-spacing:normal;
 		text-align:center;
@@ -1390,7 +1382,7 @@ img.soc-media-icons{
 		padding-top:1em;
 		font-size:350%;
 	}
-	
+	}
 .sci-section-footers{
 		background:#FF4500;
 		float:left;
@@ -1401,21 +1393,38 @@ img.soc-media-icons{
 		z-index:999;
 		text-align:center;
 		position:relative;
-		
 }
+
+
+
 
 .top{
 	float:left;
 }
+
+
 
 .sci-section-footers .float-left{
 	float:left;
 	font-size:12px;
 	width:25%;
 	font-weight:bold;
-	margin-left:4em;
+	margin-left:3em;
 	text-transform: uppercase;
 }
+
+@media only screen and (max-width: 768px){
+	.sci-section-footers .float-left{
+	float:left;
+	font-size:11px;
+	width:25%;
+	font-weight:bold;
+	margin-left:3em;
+	text-transform: uppercase;
+
+}
+}
+
 
 #triangle-facing-right {
     float:left;
