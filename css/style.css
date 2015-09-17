@@ -978,8 +978,8 @@ p.underlined{
 	
 	@media only screen and (max-width: 890px) {
 
-   #intro-science h1  { 
-   	font-size:200%;
+   #intro-science h1,#edu-components h2, #science-components h2   { 
+   	font-size:175%;
 
    }
 
