@@ -1291,20 +1291,20 @@ img.soc-media-icons{
 
 
 .homepage-footer-banner{
-	background:teal;
-	float:left;
-	margin-left:auto;
-	margin-right:auto;
-	position:relative;
-	width:100%;
-	z-index:999;
-	text-align:center;
-	position:relative;
+	background-color: #494949;
+	float: left;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	width: 100%;
+	z-index: 999;
+	text-align: center;
+	position: relative;
 }
 
 .homepage-footer-banner .float-left{
 	float:left;
-	font-size:13px;
+	font-size:12px;
 	width:25%;
 	font-weight:bold;
 	margin-left:4em;
@@ -1313,14 +1313,42 @@ img.soc-media-icons{
 
 .homepage-footer-banner .float-left-50{
 	float:left;
-	font-size:13px;
+	font-size:12px;
 	width:40%;
 	font-weight:bold;
 	margin-left:4em;
 	text-transform: uppercase;
 }
 
+.ci-footer-banner{
+	background-color: #f98212;
+	float: left;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	width: 100%;
+	z-index: 999;
+	text-align: center;
+	position: relative;
+}
 
+.ci-footer-banner .float-left{
+	float:left;
+	font-size:12px;
+	width:25%;
+	font-weight:bold;
+	margin-left:4em;
+	text-transform: uppercase;
+}
+
+.ci-footer-banner .float-left-50{
+	float:left;
+	font-size:12px;
+	width:40%;
+	font-weight:bold;
+	margin-left:4em;
+	text-transform: uppercase;
+}
 
 #triangle-facing-right {
     float:left;
@@ -1384,15 +1412,15 @@ img.soc-media-icons{
 	}
 	}
 .sci-section-footers{
-		background:#FF4500;
-		float:left;
-		margin-left:auto;
-		margin-right:auto;
-		position:relative;
-		width:100%;
-		z-index:999;
-		text-align:center;
-		position:relative;
+	background-color: #5B4E97;
+	float: left;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	width: 100%;
+	z-index: 999;
+	text-align: center;
+	position: relative;
 }
 
 
@@ -1433,6 +1461,39 @@ img.soc-media-icons{
     border-bottom: 4px solid;
     width: 10px; height: 10px;
     transform: rotate(-45deg);
+}
+
+.edu-section-footers{
+	background-color: #2c919c;
+	float: left;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	width: 100%;
+	z-index: 999;
+	text-align: center;
+	position: relative;
+}
+
+.edu-section-footers .float-left{
+	float:left;
+	font-size:12px;
+	width:25%;
+	font-weight:bold;
+	margin-left:3em;
+	text-transform: uppercase;
+}
+
+@media only screen and (max-width: 768px){
+	.edu-section-footers .float-left{
+	float:left;
+	font-size:11px;
+	width:25%;
+	font-weight:bold;
+	margin-left:3em;
+	text-transform: uppercase;
+
+}
 }
 
 
@@ -1526,15 +1587,15 @@ img.soc-media-icons{
 /*********************************************************************************/
 
 	#footer {
-		position: relative;
-		height: 5em;
-		line-height: 5em;
-		margin: 0;
-		background: #39454b;
-		color: #999;
-		color: rgba(185,186,187,0.5);
-		overflow: hidden;
-		clear:left;
+	position: relative;
+	height: 5em;
+	line-height: 5em;
+	margin: 0;
+	background-color: #494949;
+	color: #999;
+	color: rgba(185,186,187,0.5);
+	overflow: hidden;
+	clear: left;
 	}
 
 		#footer a {
