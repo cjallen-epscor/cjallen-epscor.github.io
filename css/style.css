@@ -2294,7 +2294,7 @@ a.highlight-button-purple:hover{
 		cursor: pointer;
 		clear:both;
 		font-size:11px;
-		width:75%;
+		width:150px;
 		margin: 0 auto;
 	}
 }
@@ -2307,7 +2307,7 @@ a.highlight-button-purple:hover{
 		cursor: pointer;
 		clear: both;
 		font-size: 13px;
-		width:75%;
+		width:150px;
 		margin: 0 auto;
 	}
 }
