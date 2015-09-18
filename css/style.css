@@ -1822,15 +1822,29 @@ img.soc-media-icons{
 	padding:0 1em 1em 1em;
 	height:auto;
 }
+@media  (max-width: 768px) {
 
-.block-3 h4{
-	float:left;
-	text-align: left;
-	line-height:1em;
-	font-weight:200;
-	font-size:125%;
-	padding:1em;
+	.block-3 h4{
+		float:left;
+		text-align: left;
+		line-height:1.25em;
+		font-weight:200;
+		font-size:105%;
+		padding:1em;
 }
+}
+
+@media  (min-width: 769px) {
+	.block-3 h4{
+		float:left;
+		text-align: left;
+		line-height:1.25em;
+		font-weight:200;
+		font-size:125%;
+		padding:1em;
+		}
+}
+
 
 .block-9{
 	float:left;
@@ -1841,8 +1855,8 @@ img.soc-media-icons{
 	line-height:1.35em;
 	height:auto;
 }
-
-a.highlight-button{
+/*Orange Highlight*/
+a.highlight-button-orange{
 	background:#FF4500;
 	padding:.5em 1em .5em 1em;
 	font-size:12px;
@@ -1860,6 +1874,26 @@ a.highlight-button:hover{
 	letter-spacing:0;
 }
 
+/*Purple Highlight*/
+a.highlight-button-purple{
+	background:#5B4E97;
+	padding:.5em 1em .5em 1em;
+	font-size:12px;
+	border:none;
+	color:#fff;
+	letter-spacing:0;
+}
+
+a.highlight-button-purple:hover{
+	background:#5B4E97;
+	padding:.5em 1em .5em 1em;
+	font-size:12px;
+	border:none;
+	color:#fff;
+	letter-spacing:0;
+}
+
+/*video highlight*/
 .video-highlight-button{
 	background:#FF4500;
 	padding:.5em;
@@ -2252,13 +2286,30 @@ a.highlight-button:hover{
 	}
 }
 /*Pop up video styles*/
+@media  (max-width: 768px) {
 
-.my-video-button{
-	background:  #FF4500;
-	border:none; 
-	cursor: pointer;
-	clear:both;
-	font-size:14px;
+	.my-video-button-teal{
+		background:#2c919c;
+		border:none; 
+		cursor: pointer;
+		clear:both;
+		font-size:11px;
+		width:75%;
+		margin: 0 auto;
+	}
+}
+
+@media  (min-width: 769px) {
+
+	.my-video-button-teal{
+		background: #2c919c;
+		border: none; 
+		cursor: pointer;
+		clear: both;
+		font-size: 13px;
+		width:75%;
+		margin: 0 auto;
+	}
 }
 
 .element_to_pop_up_video { 
