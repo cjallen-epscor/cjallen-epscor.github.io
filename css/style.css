@@ -90,8 +90,7 @@
 	}
 
 	sub {
-		position: relative;
-		top: -0.5em;
+		vertical-align: sub;
 		font-size: 0.8em;
 	}
 
@@ -1863,6 +1862,7 @@ a.highlight-button-orange{
 	border:none;
 	color:#fff;
 	letter-spacing:0;
+	width:150px;
 }
 
 a.highlight-button:hover{
@@ -1882,6 +1882,7 @@ a.highlight-button-purple{
 	border:none;
 	color:#fff;
 	letter-spacing:0;
+	width:150px;
 }
 
 a.highlight-button-purple:hover{
