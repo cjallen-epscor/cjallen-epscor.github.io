@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Energize New Mexico | Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="vendors/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/eternicode-bootstrap-datepicker/css/datepicker.css">
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="css/search.css">
+  </head>
+  <body>
+
+
+    <div class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="http://dev.nmepscor.org/data_portal/browse-data"><img src="css/images/nmepscor_logo_220.png"></a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="portal.html">DATA</a></li>
+                    <li><a href="#">PAGE</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+   
+    <div class="container">
+
+        <div class="row row-offcanvas row-offcanvas-left">
+            <!-- side -->
+            <div class="col-xs-3 col-sm-3 col-3 sidebar-offcanvas" id="sidebar">
+                <button type="submit" id="search-btn" class="btn btn-block btn-primary" style="margin-bottom:10px;">Search</button>
+                <button id="reset-btn" class="btn btn-block btn-info" style="margin-bottom:10px;">Reset</button>
+                
+
+                <div class="sidebar-section adjust-padding">
+                    <h5>Keywords</h5>
+                    <div id="keyword-search" class="">
+                        <form role="form">
+                            <div class="form-group">
+                                <input id="keyword-input" type="text" class="form-control" placeholder="Enter a word or phrase...">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h5>Categories</h5>
+                    <div id="category-search" class="" style="max-height: 450px;overflow-y:auto;">
+                        <div id="category-results"></div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section adjust-padding">
+                    <h5>Date Range</h5>
+                    <div>
+                        <input id="start-datepicker" class="datepicker" >
+                        <input id="end-datepicker" class="datepicker" >
+                    </div>
+                </div>
+            </div>
+
+            <!-- main -->
+            <div class="col-xs-12 col-sm-9 col-9">
+                <div class="row row-out-border">
+                    <div class="col-8 col-sm-12 col-lg-12 clearfix row-bottom-border">
+                        <h3>Search Results</h3>
+                    </div>
+                    <div class="col-8 col-sm-8 col-md-12 col-lg-12 clearfix row-bottom-border">
+                        <h4>Legend</h4>
+                        <div>
+                            <ul class="list-unstyled list-inline">
+                                <li class="file">File</li>
+                                <li class="tabular">Table</li>
+                                <li class="vector">Vector</li>
+                                <li class="geoimage">Raster</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-8 col-sm-12 col-lg-12 clearfix row-bottom-border">
+                        <h4>Filters for this result set</h4>
+                        <div id="selected-facets">
+                            <p>You haven't selected any filters.</p>
+                        </div>
+                    </div>
+                    <div class="col-8 col-sm-12 col-md-12 col-lg-12 clearfix row-bottom-border">
+                        <div id="results-options">
+                            <div id="results-count"></div>
+                            <div id="results-pager" class="pagination"></div>
+                            <div class="btn-group" id="results-display">
+                                <button type="button" id="search-grid" class="btn btn-sm btn-inverse active"><i class="icon-th icon-white"></i></button>
+                                <button type="button" id="search-list" class="btn btn-sm btn-inverse"><i class="icon-align-justify icon-white"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-8 col-sm-8 col-md-12 col-lg-12 clearfix">
+                        <div id="results" ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <!-- these are here and empty just for spacing right now -->
+                <div class="col-md-4">
+                    
+                </div>
+                <div class="col-md-3">
+                    
+                </div>
+                <div class="col-md-5">
+                    <p class="footer-text">New Mexico EPSCoR Program is funded by the National Science Foundation (NSF) award #IIA-1301346. Any opinions, findings, conclusions, or recommendations expressed in the material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.  
+                    <a href="http://www.nsf.gov/" target="_blank" alt="National Science Foundation"><br/><img src="css/images/nsf-logo-transparent.png"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/jquery.bootpag.min.js"></script>
+    <script src="vendors/eternicode-bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="vendors/mustache/mustache.js"></script>
+    <script src="js/handlebars.js"></script>
+
+    <script src="vendors/browserstate/scripts/bundled/html4+html5/jquery.history.js"></script>
+
+    <script src="js/handlebar_helpers.js"></script>
+    <script src="js/utils.js"></script>
+
+    <script src="js/dataset_search.js"></script>
+    <script src="js/category_search.js"></script>
+
+    <script id="search_grid_template" type="text/x-handlebars-template">
+        {{#results}}
+            <div class="dataset-grid col-4 col-md-4 col-lg-4" id="dataset-{{uuid}}">
+                <h5 class="{{taxonomy}}">{{description}}</h5>
+                <div class="block">
+                    {{#abstract}}
+                        <p>{{abstract}}</p>
+                    {{/abstract}}
+                    <a class="hover-tip" data-content="&lt;div&gt; {{#downloads}}{{#eachkeys this}} &lt;a class=&quot;dataset-download&quot; href=&quot;{{this.value}}&quot;&gt;{{this.key}}&lt;/a&gt;{{/eachkeys}}{{/downloads}}&lt;/div&gt;">Downloads</a> | 
+                    <a class="hover-tip {{^services}}disabled{{/services}}" data-content="&lt;div&gt; {{#services}}{{#eachkeys this}} &lt;a class=&quot;dataset-download&quot; href=&quot;{{this.value}}&quot;&gt;{{this.key}}&lt;/a&gt; {{/eachkeys}}{{/services}} &lt;/div&gt;">Services</a> | 
+                    <a class="hover-tip" data-content="&lt;div&gt; {{#metadata}} &lt;dl&gt; {{#eachkeys this}} &lt;dt&gt; {{this.key}} &lt;/dt&gt; &lt;dd&gt; {{#eachkeys this.value}}&lt;a class=&quot;dataset-download&quot; href=&quot;{{this.value}}&quot;&gt;{{this.key}}&lt;/a&gt;  {{/eachkeys}} &lt;/dd&gt; {{/eachkeys}} &lt;/dl&gt; {{/metadata}}  &lt;/div&gt;">Metadata</a>
+                    <div class="btn-block">                        
+                        <button class="btn btn-default btn-sm btn-custom btn-info" data-ref="info.html?uuid={{uuid}}&type={{taxonomy}}">More info</button>
+                    </div>
+                </div>
+            </div>
+        {{/results}}
+    </script>
+
+    <script id="search_list_template" type="text/x-handlebars-template">
+        <dl class="dataset-list">
+            {{#results}}
+                <dt class="{{taxonomy}}">{{description}}</dt>
+                <dd id="dataset-{{uuid}}">
+                    <div style="float:left;">
+                        {{#abstract}}
+                            <p>{{abstract}}</p>
+                        {{/abstract}}
+                    </div>
+                    <div style="float:right;">
+                        <a class="hover-tip" data-content="&lt;div&gt; {{#downloads}}{{#eachkeys this}} &lt;a class=&quot;dataset-download&quot; href=&quot;{{this.value}}&quot;&gt;{{this.key}}&lt;/a&gt;{{/eachkeys}}{{/downloads}}&lt;/div&gt;">Downloads</a> | 
+                    <a class="hover-tip {{^services}}disabled{{/services}}" data-content="&lt;div&gt; {{#services}}{{#eachkeys this}} &lt;a class=&quot;dataset-download&quot; href=&quot;{{this.value}}&quot;&gt;{{this.key}}&lt;/a&gt; {{/eachkeys}}{{/services}} &lt;/div&gt;">Services</a> | 
+                    <a class="hover-tip" data-content="&lt;div&gt; {{#metadata}} &lt;dl&gt; {{#eachkeys this}} &lt;dt&gt; {{this.key}} &lt;/dt&gt; &lt;dd&gt; {{#eachkeys this.value}}&lt;a class=&quot;dataset-download&quot; href=&quot;{{this.value}}&quot;&gt;{{this.key}}&lt;/a&gt;  {{/eachkeys}} &lt;/dd&gt; {{/eachkeys}} &lt;/dl&gt; {{/metadata}}  &lt;/div&gt;">Metadata</a>
+                        <div class="btn-block">
+                            <button class="btn btn-default btn-sm btn-custom btn-info" data-ref="info.html?uuid={{uuid}}&type={{taxonomy}}">More info</button>
+                        </div>
+                    </div>
+                </dd>
+            {{/results}}
+        </dl>
+    </script>
+
+    <script id="facets_template" type="text/x-handlebars-template">
+        {{#params}}
+            {{#keywords}}
+                <p>Keywords: <a href="#">{{text}} <span class="badge"><a href="#" onClick="remove_facet('keywords');">&times;</a></span></a></p>
+            {{/keywords}}
+            {{#category}}
+                <p>Category: <a href="#">{{text}} <span class="badge"><a href="#" onClick="remove_facet('category');">&times;</a></span></a></p>
+            {{/category}}
+            {{#start_year}}
+                <p>Start Date: <a href="#">{{text}} <span class="badge"><a href="#" onClick="remove_facet('start_year');">&times;</a></span></a></p>
+            {{/start_year}}
+            {{#end_year}}
+                <p>End Date: <a href="#">{{text}} <span class="badge"><a href="#" onClick="remove_facet('end_year');">&times;</a></span></a></p>
+            {{/end_year}}
+        {{/params}}
+        {{^params}}
+            <p>You have not selected any search options.</p>
+        {{/params}}
+    </script>
+
+    <script id="theme_template" type="text/x-handlebars-template">
+        <div>
+            <ul class="categories">
+                {{#results}}
+                    <li><a href="#" onclick="select_theme(this);" data-theme="{{text}}">{{text}}</a></li>
+                {{/results}}
+            </ul>
+        </div>
+    </script>
+    <script id="subtheme_template" type="text/x-handlebars-template">
+        <div>
+            <h5 class="selected-theme">{{theme}} <span class="glyphicon glyphicon-remove-circle category-remove" data-reset="theme"></span></h5>
+            <ul class="categories">
+                {{#results}}
+                    <li><a href="#" onclick="select_subtheme(this);" data-theme="{{../theme}}" data-subtheme="{{text}}">{{text}}</a></li>
+                {{/results}}
+            </ul>
+        </div>
+    </script>
+    <script id="groupname_template" type="text/x-handlebars-template">
+        <div>
+            <h5 class="selected-theme">{{theme}} <span class="glyphicon glyphicon-remove-circle category-remove" data-reset="theme"></span></h5>
+            <h5 class="selected-subtheme">{{subtheme}} <span class="glyphicon glyphicon-remove-circle category-remove" data-reset="subtheme"></span></h5>
+            <ul class="categories">
+                {{#results}}
+                    <li><a href="#" onclick="select_group(this);" data-theme="{{../theme}}" data-subtheme="{{../subtheme}}" data-groupname="{{text}}">{{text}}</a></li>
+                {{/results}}
+            </ul>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+
+        var limit = 15;
+
+        var base_url = "http://gstore.unm.edu/apps/energize/search/datasets.json";
+        var base_category_url = "http://gstore.unm.edu/apps/energize/search/categories.json";
+
+        var searcher = new DatasetSearch(base_url, limit, 0);
+        var category_searcher = new CategorySearch(base_category_url, '#category-results');
+
+        $(document).ready(function() {
+
+            $('#results-display button').click(function() {
+                choice = $(this).attr('id');
+                var tmpl = choice === 'search-list' ? 'search_list_template' : 'search_grid_template';
+
+                //don't do this. we just want to cache the results somewhere instead
+                search_gstore(searcher.build_url(), tmpl, $('#results'), false, false, {});
+
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+            });
+
+            $('#search-btn').click(function() {
+                var keywords = $('#keyword-input').val();
+                if (keywords !== '' && keywords !== undefined) {
+                    searcher.keywords = keywords;
+                }
+
+                var start_date = $('#start-datepicker').val();
+                if (start_date !== '' && start_date !== undefined) {
+                    searcher.start_year = start_date;
+                }
+                var end_date = $('#end-datepicker').val();
+                if (end_date !== '' && end_date !== undefined) {
+                    searcher.end_year = end_date;
+                }
+
+                //get the category triplet values
+                searcher.theme = category_searcher.theme;
+                searcher.subtheme = category_searcher.subtheme;
+                searcher.groupname = category_searcher.groupname;
+
+                searcher.offset = 0;
+
+                var tmpl = $('#results-display button.active').attr('id') == 'search-list' ? 'search_list_template' : 'search_grid_template';
+
+                search_gstore(searcher.build_url(), tmpl, $('#results'), true, false, {});
+
+                execute_template('facets_template', searcher.to_facets(), $('#selected-facets'), false);
+
+                update_query();
+
+            });
+
+            /** TODO: this is loading to null **/
+            $('#reset-btn').click(function() {
+                searcher = new DatasetSearch(base_url, limit, 0);
+                search_gstore(searcher.build_url(), 'search_grid_template', $('#results'), true, false, {}, true);
+                //search_gstore(base_category_url, 'category_template', $('#category-results'), false, false, {"level": "theme"});
+                //execute_template('facets_template', searcher.to_facets(), $('#selected-facets'), false);
+            });
+
+            $('.datepicker').datepicker({
+                format: 'mm/dd/yyyy'
+            });
+
+            //check for query params from the landing page (or wherever)
+            //and update the searcher
+            params = parse_query();
+
+            $.each(params, function(k, v) {
+                searcher[k] = v;
+            });
+
+            //and execute the initial searches
+            search_gstore(searcher.build_url(), 'search_grid_template', $('#results'), true, false, {});
+            execute_template('facets_template', searcher.to_facets(), $('#selected-facets'), false);
+
+            category_searcher.search('theme_template');
+        });
+
+        /**
+        data_apd = dict where k,v will be appended to the root of the data response
+        so we can monkey with the category tree responses
+        **/
+        function search_gstore(url, tmpl, root, update_page, apd, data_apd) {
+            $.getJSON(url, function() {
+            })
+            .success(function(data) {
+                if (data_apd !== undefined) {
+                    for (key in data_apd) {
+                        data[key] = data_apd[key];
+                    }
+                }
+
+                execute_template(tmpl, data, root, apd);      
+
+                if (update_page) {
+                    update_pager(data.total, Math.ceil(searcher.offset / limit));
+                }
+                    
+            })
+            .error(function(jq, err) {
+                console.log(err);
+            })
+            .done(function(data) {
+                $('a.hover-tip').not('.disabled').popover({html:true, placement: 'top'});
+                $('button.btn-info').bind('click', redirect);
+            });
+        }
+
+        function execute_template(template, data, root, apd) {
+            var template = Handlebars.compile(document.getElementById(template).innerHTML)       
+            if (apd) {
+                root.append(template(data));
+            } else {
+                root.html(template(data));
+            }
+        }
+
+        function update_pager(cnt, init_page) {
+            $('#results-pager').bootpag({
+                total: Math.ceil(cnt / limit),
+                page: (init_page !== undefined && init_page > 0) ? init_page : 1, //keep track of the current page of the results
+                maxVisible: 10,
+                leaps: true
+            }).on("page", function(event, num) {
+                searcher.offset = (num - 1) * limit;
+                search_gstore(searcher.build_url(), 'search_grid_template', $('#results'), false, false, {});
+                update_query();
+            });
+
+            //not sure what's going on the with the pager (possibly related with change from bootstrap 2 to 3), but
+            //without this it doesn't style correctly.
+            $('#results-pager ul.bootpag').addClass('pagination').addClass('pagination-sm');
+
+            $('#results-count').html('<p>Your search returned '+cnt.toLocaleString()+' datasets.</p>');
+        } 
+
+        function update_category(o) {
+            var id = o.getAttribute('id');
+            var value = '';
+            var level = 'theme';
+
+            //in case it's the h# element
+            if (id.indexOf('theme-') === 0) {
+                value = id.replace('theme-', '');
+            } else {
+                value = id.replace('lgi-', '');
+                elem = $("a[id='lgi-" + value + "']");
+                level = elem.parent().parent().attr('id').replace('lg-','');
+            }
+
+            data_apd = {'level': level};
+
+            if (level==='subtheme') {
+                //theme + subtheme (don't care about the groupnames here)
+                params = '?node=' + [searcher.theme.replace(/ /g, '+'), value.replace(/ /g, '+')].join('__|__');
+                searcher.subtheme = value;
+                data_apd['level'] = 'groupname';
+                data_apd['leaf'] = 'yes';
+            } else if (level==='theme') {
+                //theme
+                params = '?node=' + value.replace(/ /g, '+');
+                searcher.theme = value;
+                data_apd['level'] = 'subtheme';
+
+            } else {
+
+                if (elem.parent('li:not(.active)').length > 0 ) {
+                    elem.parent('li:not(.active)').addClass('active');
+                    searcher.groupname = value;
+                } else {
+                    elem.parent('li').removeClass('active');
+                    searcher.groupname = '';
+                }
+                return;
+            }
+            if (searcher.theme !== '') {
+                data_apd['theme'] = searcher.theme;
+            }
+            if (searcher.subtheme !== '') {
+                data_apd['subtheme'] = searcher.subtheme;
+            }
+            if (searcher.groupname !== '') {
+                data_apd['groupname'] = searcher.groupname;
+            }
+
+            search_gstore(base_category_url + params, 'category_template', $('#category-results'), false, false, data_apd);
+        }
+
+        function reset_category(value) {
+            if (value.indexOf('theme-') === 0 || value === 'all') {
+                searcher.theme = '';
+                searcher.subtheme = '';
+                searcher.groupname = '';
+                search_gstore(base_category_url, 'category_template', $('#category-results'), false, false, {"level": "theme"});
+            } else if (value.indexOf('subtheme-') === 0) {
+                searcher.subtheme = '';
+                searcher.groupname = '';
+                update_category(document.getElementById('theme-' + searcher.theme));
+            }
+        }
+
+        function remove_facet(facet) {
+            if (facet === 'keywords') {
+                searcher.keywords = '';
+                $('input#keyword-input').val('');
+            } else if (facet === 'category') {
+                reset_category('all');
+            } else if (facet === 'start_year') {
+                searcher.start_year = '';
+                $('input#start-datepicker').val('');
+            } else if (facet === 'end_year') {
+                searcher.end_year = '';
+                $('input#end-datepicker').val('');
+            }
+            var tmpl = $('#results-display button.active').attr('id') === 'search-list' ? 'search_list_template' : 'search_grid_template';
+            search_gstore(searcher.build_url(), tmpl, $('#results'), true, false, {});
+
+            execute_template('facets_template', searcher.to_facets(), $('#selected-facets'), false);
+
+            update_query();
+        }
+
+        function update_query() {
+            //run the history.js to update the query params
+            var partial_url = searcher.build_url().replace(base_url, '');
+            var params = searcher.to_query(partial_url.substr(1));
+            History.pushState(params, null, partial_url);
+        }
+
+        //update the category facet widget
+        //TODO: this is so bad. it should really be a plugin
+        //      complete thing. sorry.
+        function select_theme(obj) {
+            var theme = obj.getAttribute('data-theme');
+            category_searcher.update_options(theme);
+            category_searcher.search('subtheme_template');
+
+            searcher.theme = theme;
+        }
+        function select_subtheme(obj) {
+            var theme = obj.getAttribute('data-theme');
+            var subtheme = obj.getAttribute('data-subtheme');
+            category_searcher.update_options(theme, subtheme);
+            category_searcher.search('groupname_template');
+
+            searcher.theme = theme;
+            searcher.subtheme = subtheme;
+        }
+        function select_group(obj) {
+            //highlight the little widget (the list item, not the link)
+            $(obj).parent().parent().find('.highlight').removeClass('highlight')
+            $(obj).parent().addClass('highlight');
+
+            var theme = obj.getAttribute('data-theme');
+            var subtheme = obj.getAttribute('data-subtheme');
+            var groupname = obj.getAttribute('data-groupname');
+
+            category_searcher.update_options(theme, subtheme, groupname);
+
+            searcher.theme = theme;
+            searcher.subtheme = subtheme;
+            searcher.groupname = groupname;
+        }
+
+        function remove_category(obj) {
+            var to_reset = obj.currentTarget.getAttribute('data-reset');
+            var tmpl = '';
+            if (to_reset === 'theme') {
+                category_searcher.update_options();
+                tmpl = 'theme_template';
+            } else if (to_reset === 'subtheme') {
+                category_searcher.update_options(category_searcher.theme);
+                tmpl = 'subtheme_template';
+            }
+            category_searcher.search(tmpl);
+        }
+
+    </script>
+
+  </body>
+</html>

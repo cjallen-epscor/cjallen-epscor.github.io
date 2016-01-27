@@ -1,0 +1,262 @@
+.dataset-grid.col-lg-4:nth-child(3n+1) {
+    clear:left;
+}
+
+.sidebar-well {
+    margin:10px 0;
+}
+.well.danger {
+    background-color:#f2dede;
+    color:#a94442;
+    border-color:#ebccd1;
+}
+
+.well {
+    background-color: #e6e6e6;
+}
+
+.row-out-border {
+    border-left: thin solid #999999;
+    border-right: thin solid #999999;
+}
+
+.row-bottom-border {
+    border-bottom: thin solid #999999;
+}
+
+
+/** for the search facet selection widgets (left column)  **/
+.sidebar-section {
+    border-bottom: thin solid #999999;
+    margin-right:-15px;
+}
+
+.sidebar-section.adjust-padding {
+    padding-right:15px;
+}
+
+/** the category facets (on the left) **/
+#category-results{
+    padding-right:15px;
+}
+ul.categories {
+    list-style: none;
+    padding:0;
+    margin:0;
+    margin-bottom: 15px;
+}
+ul.categories li {
+    color:#428bca;
+    padding: 5px 10px;
+}
+ul.categories li:hover {
+    background-color:#dfc5c6;
+}
+ul.categories a:hover {
+    text-decoration: none;
+}
+h5.selected-theme, h5.selected-subtheme {
+    background-color:#e6e6e6;
+    border-bottom: thin solid #999999;
+    padding:10px;
+    margin:0;
+    color:#555;
+}
+h5.selected-subtheme {
+    background-color:#f7f7f7;
+}
+.category-remove {
+    float:right;
+}
+.category-remove:hover {
+    color:red;
+}
+ul.categories li.highlight {
+    background-color:#c6e1fd;
+}
+
+/** end categories **/
+
+.datepicker {
+    float:right;
+}
+
+/** end facets **/
+
+.footer {
+    background-color:#e6e6e6;
+    border-top:thick solid #336666;
+
+    display:block;
+    margin-top:50px;
+
+    padding-top:20px;
+
+    bottom:0;
+
+    width:100%;
+}
+
+.footer h2 {
+    margin-top:0;
+    color:#8e0c0d;
+    /**font-weight:bold;**/
+    font-size: 155%;
+    font-family: 'Open Sans Condensed',sans-serif;
+}
+
+.footer a {
+    color: #000;
+    text-decoration: none;
+    font-size: 90%;
+    line-height: 100%;
+    font-style: normal;
+}
+
+.footer-text {
+    text-align:center;
+    font-size:85%;
+}
+
+/** search results dispaly **/
+.dataset-grid {
+    margin-bottom: 20px;
+    padding-bottom:5px;
+    min-height:200px;
+
+}
+
+.dataset-grid h5 {
+    padding:20px;
+    background-color: #eee;
+    margin-bottom:0;
+}
+
+.dataset-grid h5::before {
+    position:absolute;
+    left:0;
+    content: ' ';
+}
+
+.dataset-grid .block {
+    padding:15px;
+    border-bottom: thin solid #e6e6e6;
+    border-left: thin solid #e6e6e6;
+    border-right: thin solid #e6e6e6;
+}
+
+.dataset-grid.active {
+    background-color: #c9d5e6;
+}
+
+.btn-block {
+    padding-top:10px;
+}
+
+dl.dataset-list dd {
+    margin-bottom: 50px;
+    padding:20px;
+}
+
+
+.dataset-list dt {
+    padding: 5px 18px 5px;
+    background-color: #eee;
+}
+
+.dataset-list dt::before {
+    position:absolute;
+    left:0;
+    content: ' ';
+}
+
+.date-added {
+    font-size:85%;
+    padding-top: 10px;
+}
+
+#map {
+    width:100%;
+    height:340px;
+}
+
+.tab-pane {
+    min-height: 300px;
+}
+
+.pagination {
+    margin:0;
+}
+
+.badge {
+    background-color: #ddd;
+}
+
+a.disabled {
+    text-decoration:none;
+    color:#555;
+}
+
+#results-options .btn-group {
+    vertical-align: inherit;
+}
+
+ul.list-group {
+
+}
+ul.list-group .list-group-item {
+    /**width:80%;**/
+    border:none;
+    display:block;
+    padding:5px 0;
+    margin:0;
+}
+
+.list-group-item a:hover .badge {
+    background-color: #fcbdbc;
+}
+
+.list-group-item:hover {
+    background-color:#fcbdbc;
+}
+.list-group-item a {
+    text-decoration: none;
+}
+
+.list-group-item.active {
+    background-color: #dac7e4;
+    color: #442851;
+}
+
+.list-group-item span.badge {
+    float:right;
+}
+
+/** dataset type styles **/
+
+.file, .vector, .geoimage, .collection, .tabular {
+    background-color:#e6e6e6;
+}
+.vector {
+    border-left: 10px solid #2e6c74;
+}
+
+.file {
+    border-left: 10px solid #911f11;
+}
+
+.geoimage {
+    border-left: 10px solid #4ea265;
+}
+
+.tabular {
+    border-left: 10px solid #bf6214;
+}
+
+.collection {
+    border-left: 10px solid #764144;
+}
+
+.search-button, span.glyphicon-search {
+    cursor:pointer;
+}

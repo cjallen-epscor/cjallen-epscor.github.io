@@ -1,0 +1,249 @@
+<html>
+  <head>
+    <title>Energize New Mexico | Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="vendors/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="css/search.css">
+
+    <style>
+        ul {
+            list-style: none;
+            padding:0;
+            margin:0;
+        }
+        ul li {
+            color:#428bca;
+            padding: 5px 10px;
+        }
+
+        ul li:hover {
+            text-decoration: none;
+            background-color:#dfc5c6;
+        }
+
+
+        h5.selected-theme, h5.selected-subtheme {
+            background-color:#e6e6e6;
+            border-bottom: thin solid #999999;
+            padding:10px;
+            margin:0;
+            color:#555;
+        }
+        h5.selected-subtheme {
+            background-color:#f7f7f7;
+        }
+
+        .category-remove {
+            float:right;
+        }
+        .category-remove:hover {
+            color:red;
+        }
+
+        .highlight {
+            background-color:#c6e1fd;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+        <div class="row row-offcanvas row-offcanvas-left">
+            <!-- side -->
+            <div class="col-xs-3 col-sm-3 col-3 sidebar-offcanvas" id="sidebar">
+                <button type="submit" id="search-btn" class="btn btn-block btn-primary" style="margin-bottom:10px;">Search</button>
+                <button id="reset-btn" class="btn btn-block btn-info" style="margin-bottom:10px;">Reset</button>
+                
+
+                <div class="sidebar-section adjust-padding">
+                    <h5>Keywords</h5>
+                    <div id="keyword-search" class="">
+                        <form role="form">
+                            <div class="form-group">
+                                <input id="keyword-input" type="text" class="form-control" placeholder="Enter a word or phrase...">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h5>Categories</h5>
+                    <div id="category-search" class="" style="max-height: 450px;overflow-y:auto;">
+                        <div id="category-results"></div>
+                    </div>
+                </div>
+
+                <div class="well danger sidebar-well">
+                    <p>This is intended only as a proof of concept
+                        interface for the GSTORE API. It is not meant
+                        for live data access. Please visit <a href="http://gstore.unm.edu">GSTORE</a>
+                        and <a href="http://nmepscor.org">NM EPSCoR</a> for
+                        data access. 
+                    </p>
+                </div>
+            </div>
+
+            <!-- main -->
+            <div class="col-xs-12 col-sm-9 col-9">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendors/mustache/mustache.js"></script>
+    <script src="js/handlebars.js"></script>
+    <script src="js/handlebar_helpers.js"></script>
+    <script src="js/utils.js"></script>
+
+    <script id="theme_template" type="text/x-handlebars-template">
+        <div>
+            <ul>
+                {{#results}}
+                    <li><a href="#" onclick="select_theme(this);" data-theme="{{text}}">{{text}}</a></li>
+                {{/results}}
+            </ul>
+        </div>
+    </script>
+    <script id="subtheme_template" type="text/x-handlebars-template">
+        <div>
+            <h5 class="selected-theme">{{theme}} <span class="glyphicon glyphicon-remove-circle category-remove" data-reset="theme"></span></h5>
+            <ul>
+                {{#results}}
+                    <li><a href="#" onclick="select_subtheme(this);" data-theme="{{../theme}}" data-subtheme="{{text}}">{{text}}</a></li>
+                {{/results}}
+            </ul>
+        </div>
+    </script>
+    <script id="groupname_template" type="text/x-handlebars-template">
+        <div>
+            <h5 class="selected-theme">{{theme}} <span class="glyphicon glyphicon-remove-circle category-remove" data-reset="theme"></span></h5>
+            <h5 class="selected-subtheme">{{subtheme}} <span class="glyphicon glyphicon-remove-circle category-remove" data-reset="subtheme"></span></h5>
+            <ul>
+                {{#results}}
+                    <li><a href="#" onclick="select_group(this);" data-theme="{{../theme}}" data-subtheme="{{../subtheme}}" data-groupname="{{text}}">{{text}}</a></li>
+                {{/results}}
+            </ul>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+        var base_category_url = "http://gstore.unm.edu/apps/energize/search/categories.json";
+
+        var search = new CategorySearch(base_category_url, '#category-results')
+
+        function CategorySearch(base_url, element_id) {
+            this.base_url = base_url;
+            this.version = 3;
+            this.theme = '';
+            this.subtheme = '';
+            this.groupname = '';
+
+            this.element_id = element_id;
+        }
+        CategorySearch.prototype.build_url = function() {
+            //?node=theme__|__subtheme__|__groupname
+            var parts = [];
+            if (this.theme !== '') {
+                parts.push(this.theme.replace(/ /g, '+'));
+            }
+            if (this.theme !== '' && this.subtheme !== '') {
+                parts.push(this.subtheme.replace(/ /g, '+'));
+            }
+            if (this.theme !== '' && this.subtheme !== '' && this.groupname !== '') {
+                parts.push(this.groupname.replace(/ /g, '+'));
+            }
+
+            return this.base_url + '?version='+this.version+'&node=' + parts.join('__|__');
+        }
+        CategorySearch.prototype.update_options = function(theme, subtheme, groupname) {
+            this.theme = (theme !== undefined) ? theme : '';
+            this.subtheme = (subtheme !== undefined) ? subtheme : '';
+            this.groupname = (groupname !== undefined) ? groupname : '';
+        }
+        CategorySearch.prototype.search = function(tmpl) {
+            var theme = this.theme;
+            var subtheme = this.subtheme;
+
+            var to_append = {};
+            if (theme !== '' && theme != undefined) {
+                to_append['theme'] = theme;
+            }
+            if (subtheme !== '' && subtheme != undefined) {
+                to_append['subtheme'] = subtheme;
+            }
+            this.execute_search(this.build_url(), tmpl, to_append, $(this.element_id));
+        }
+
+        CategorySearch.prototype.execute_search = function(url, tmpl, to_append, elem) {
+            $.getJSON(url, function() {
+            })
+            .success(function(data) {
+                                    
+            })
+            .error(function(jq, err) {
+                console.log(err);
+            }).done(function(data) {
+                //add the theme, subtheme to the response for the template
+                var all = $.extend({}, data, to_append);
+
+                execute_template(tmpl, all, elem, false);
+
+                //init the remove button
+                $('.category-remove').bind('click', function() {
+                    var to_reset = this.getAttribute('data-reset');
+                    var tmpl = '';
+                    if (to_reset === 'theme') {
+                        search.update_options();
+                        tmpl = 'theme_template';
+                    } else if (to_reset === 'subtheme') {
+                        search.update_options(search.theme);
+                        tmpl = 'subtheme_template';
+                    }
+                    search.search(tmpl);
+                });
+            });
+        }
+
+        $(document).ready(function() {
+            search.search('theme_template');
+        });
+
+        
+        function select_theme(obj) {
+            var theme = obj.getAttribute('data-theme');
+            search.update_options(theme);
+            search.search('subtheme_template');
+        }
+        function select_subtheme(obj) {
+            var theme = obj.getAttribute('data-theme');
+            var subtheme = obj.getAttribute('data-subtheme');
+            search.update_options(theme, subtheme);
+            search.search('groupname_template');
+        }
+        function select_group(obj) {
+            //highlight the little widget (the list item, not the link)
+            $(obj).parent().parent().find('.highlight').removeClass('highlight')
+            $(obj).parent().addClass('highlight');
+        }
+
+        function execute_template(template, data, root, apd) {
+            var template = Handlebars.compile(document.getElementById(template).innerHTML)       
+            if (apd) {
+                root.append(template(data));
+            } else {
+                root.html(template(data));
+            }
+        }
+
+    </script>
+</body>
+</html

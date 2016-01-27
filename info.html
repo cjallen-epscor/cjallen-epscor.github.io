@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Energize New Mexico | </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="vendors/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/leaflet-0.7/leaflet.css">
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/info.css">
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="http://dev.nmepscor.org/data_portal/browse-data"><img src="css/images/nmepscor_logo_220.png"></a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">DATA</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" itemscope="itemscope" itemtype="http://schema.org/Dataset">
+        <div class="row">
+            <!-- sidebar widget -->
+            <div class="col-xs-3 col-sm-3 col-3 sidebar-offcanvas" id="sidebar">
+                <ul class="info-sidebar">
+                    <li><a href="#preview-section">Preview</a></li>
+                    <li><a href="#info">Summary</a></li>
+                    <li><a href="#access">Access</a></li>
+                    <li><a href="#contacts">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- main content -->
+            <div class="col-xs-12 col-sm-9 col-md-9">
+                <div class="row row-out-border">
+                    <div class="clearfix">
+                        <h2 id="description" itemprop="name"></h2>
+                    </div>
+                </div>
+                <div class="row row-out-border" id="preview-section">
+                    <div>
+                        <h4>Spatial Coverage</h4>
+                        <div id="map"></div>
+                        <p id="coverage-bbox"></p>
+                    </div>
+                </div>
+                <!-- <div class="row row-out-border hidden" id="preview-block">
+                    <h4>Preview</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <select class="form-control" id="attribute-options">
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="preview"></div>
+                </div> -->
+                <!-- from the service description -->
+                <div id="info" class="row row-out-border"></div>
+                <!-- from the metadata (abstract, keywords and placenames) -->
+                <div id="abstract" class="row row-out-border"></div>
+                <!-- from the service description -->
+                <div id="access" class="row row-out-border"></div>
+                <!-- from the metadata -->
+                <div id="contacts" class="row row-out-border"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <!-- these are here and empty just for spacing right now -->
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-5">
+                    <p class="footer-text">New Mexico EPSCoR Program is funded by the National Science Foundation (NSF) award #IIA-1301346. Any opinions, findings, conclusions, or recommendations expressed in the material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
+                    <a href="http://www.nsf.gov/" target="_blank" alt="National Science Foundation"><br/><img src="css/images/nsf-logo-transparent.png"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendors/leaflet-0.7/leaflet.js"></script>
+    <script src="http://d3js.org/d3.v2.js"></script>
+    <script src="vendors/mustache/mustache.js"></script>
+    <script src="js/handlebars.js"></script>
+    <script src="js/handlebar_helpers.js"></script>
+    <script src="js/utils.js"></script>
+
+    <script id="info-template" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-4 col-sm-4 col-lg-4">
+                <dl>
+                    <dt>Theme</dt>
+                    <dd>
+                        {{#categories}}
+                            <p><a href="{{../link}}theme={{theme}}">{{theme}}</a> &gt; <a href="{{../link}}theme={{theme}}&subtheme={{subtheme}}">{{subtheme}}</a> &gt; <a href="{{../link}}theme={{theme}}&subtheme={{subtheme}}&groupname={{groupname}}">{{groupname}}</a><p>
+                        {{/categories}}
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-4 col-sm-4 col-lg-4">
+                <dl>
+                    <dt>Date Added</dt>
+                    <dd itemprop="temporal">{{#lastupdate}}{{#displayDate this}}{{/displayDate}}{{/lastupdate}}</dd>
+                </dl>
+            </div>
+            <div class="col-4 col-sm-4 col-lg-4">
+                <dl>
+                    <dt>Type</dt>
+                    <dd><span class="taxonomy {{taxonomy}}">{{taxonomy}}</span></dd>
+                </dl>
+            </div>
+        </div>
+    </script>
+
+    <script id="abstract-template" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-md-8">
+                <h4>Description</h4>
+                {{#abstract}}
+                    <p>{{this}}</p>
+                {{/abstract}}
+                {{^abstract}}
+                    <p>No description available.</p>
+                {{/abstract}}
+            </div>
+            <div class="col-md-4">
+                <h4>Keywords</h4>
+                <ul>
+                    {{#each keywords}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </script>
+
+    <script id="access-template" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-4 col-sm-4 col-lg-4">
+                <h4 itemprop="distribution" itemscope="itemscope" itemtype="http://schema.org/DataDownload">Downloads</h4>
+                {{#downloads}}
+                    {{#eachkeys this}}
+                        <a class="label label-primary" href="{{this.value}}"><meta itemprop="contentUrl" content="{{this.value}}"><span itemprop="description">{{this.key}}</span></a>
+                    {{/eachkeys}}
+                {{/downloads}}
+            </div>
+            <div class="col-4 col-sm-4 col-lg-4">
+                <h4>Services</h4>
+                {{#services}}
+                    {{#eachkeys this}}
+                        <a class="label label-primary" href="{{this.value}}">{{this.key}}</a>
+                    {{/eachkeys}}
+                {{/services}}
+            </div>
+
+            <div class="col-4 col-sm-4 col-lg-4">
+                <h4>Documentation</h4>
+                {{#metadata}}
+                    <dl>
+                    {{#eachkeys this}}
+                        <dt>{{this.key}}</dt>
+                        <dd>
+                        {{#eachkeys this.value}}
+                            <a class="label label-primary" href="{{this.value}}">{{this.key}}</a>
+                        {{/eachkeys}}
+                        </dd>
+                    {{/eachkeys}}
+                    </dl>
+                {{/metadata}}
+            </div>
+        </div>
+    </script>
+
+    <script id="contact-template" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-md-8" itemtype="http://schema.org/Person" itemprop="author">
+                <h4>Point of Contact</h4>
+                <p><span itemprop="name">Name: </span> {{name}}</p>
+                {{#position}}<p><span>Position: </span> {{position}}</p>{{/position}}
+                <p><span itemprop="worksFor affiliation" itemscope itemtype="http://schema.org/EducationalOrganization">Organization: </span> {{organization}}</p>
+                <p><span itemprop="email">Email: </span> {{email}}</p>
+                <p><span>Phone: </span> {{phone}}</p>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+        var _base_url = "http://gstore.unm.edu/apps/energize/datasets/";
+        var map;
+
+        $(document).ready(function() {
+            //get the dataset uuid and grab the service description
+            var params = parse_query();
+
+            var uuid = params['uuid'];
+            var datatype = params['type'];
+
+            var service_url = _base_url + uuid + '/services.json'
+            $.ajax({
+                url: service_url,
+                crossDomain: true,
+                dataType:"json"
+            }).fail(function(jq, err) {
+                //console.log(err);
+            }).done(function(data) {
+                //load stuff up
+                $('#description').html(data.description);
+                document.title += ' ' + data.description;
+                var bbox = $.map(data.spatial.bbox, function(v) {return parseFloat(v);});
+
+                //include the links to the categories for a one-click return to search
+
+                execute_template('info-template', $.extend({}, data, {'link':'index.html?'}), $('#info'));
+                execute_template('access-template', data, $('#access'));
+                execute_map(bbox);
+
+                //get the fgdc metadata xml record
+                var metadata_url = get_metadata_url(data);
+                if (metadata_url !== '') {
+                    call_metadata(metadata_url);
+                }
+
+                /*if (data.taxonomy === 'vector') {
+                    $('#preview-block').removeClass('hidden');
+                }*/
+            });
+
+            //needed for the chart preview
+            /*get_attribute_list(uuid);
+
+            $('#attribute-options').change(function() {
+                var short_name = $(this).find('option:selected').attr('id');
+                var desc = $(this).val();
+
+                execute_chart(uuid, short_name, desc)
+            });*/
+
+        });
+
+        function get_attribute_list(uuid) {
+            $.ajax({
+                url: _base_url + uuid + '/attributes.json',
+                crossDomain: true,
+                dataType: 'json'
+            }).success(function() {
+
+            }).error(function(jq, err) {
+                console.log(err);
+            }).success(function(data) {
+                //add the name and description to the select
+                //IF and ONLY IF it's a double and NOT a date/time
+                var h = [];
+                $.each(data.results, function(index, value) {
+                    if (value.datatype === 'double') {
+                        h.push('<option id="'+value.name+'" data-attuuid="'+value.uuid+'">'+value.description+'</option>');
+                    }
+                });
+
+                $('#attribute-options').html(h.join(''));
+            });
+        }
+
+        function get_metadata_url(data) {
+            var mu = '';
+            $.each(data['metadata'], function(index, value) {
+                var key = Object.keys(value)[0];
+                if (key.indexOf('FGDC') !== -1) {
+                    mu = value[key]['xml'];
+                }
+            });
+            return mu;
+        }
+
+        function call_metadata(metadata_url) {
+            $.ajax({
+                url: metadata_url,
+                dataType: 'xml',
+                crossDomain: true
+            }).fail(function(jq, err) {
+                console.log(err);
+            }).done(function(xml) {
+                //convert the bits we want to json
+                //and then send to the templates
+
+                /** abstract, keywords, point of contact, metadata contact **/
+
+                var abstract = $(xml).find("metadata > idinfo > descript > abstract").text();
+                var keyword_elements = $(xml).find("metadata > idinfo > keywords > theme > themekey");
+                var keywords = [];
+                $.each(keyword_elements, function(i, v) {
+                    keywords.push(v.textContent);
+                });
+
+                var ptcontac = $(xml).find("metadata > idinfo > ptcontac > cntinfo");
+                var contact = extract_contact(ptcontac);
+
+                var data = {};
+                data['abstract'] = abstract;
+                data['keywords'] = keywords;
+
+                execute_template('abstract-template', data, $('#abstract'));
+
+                execute_template('contact-template', contact, $('#contacts'));
+            });
+        }
+
+        function execute_template(template, data, root) {
+            var template = Handlebars.compile(document.getElementById(template).innerHTML);
+            root.html(template(data));
+        }
+
+        function execute_map(bbox) {
+            map = L.map('map').setView([34.51, -106.26], 6);
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                {
+                    attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a><br>NM EPSCoR 2014',
+                    maxZoom: 18
+                }).addTo(map);
+
+            var geom;
+            if (bbox[0] == bbox[2] && bbox[1] == bbox[3]) {
+                 geom = L.marker([bbox[1], bbox[0]]);
+            } else {
+                 geom = L.polygon([
+                         [bbox[1], bbox[0]],
+                         [bbox[1], bbox[2]],
+                         [bbox[3], bbox[2]],
+                         [bbox[3], bbox[0]]
+                    ], {fillColor: '#21aae9', fillOpacity: 0.5, stroke: false});
+            }
+
+            geom.addTo(map);
+            //TODO: this is probably not the correct structure for the geometry
+            var bbox_str = '<p itemprop="spatial" itemtype="http://schema.org/GeoShape"><meta itemprop="box" content="'+bbox.join(' ')+'">BBOX: '+bbox+'</p>';
+            $('#coverage-bbox').html(bbox_str);
+        }
+
+        //NOTE: this doesn't work for negative numbers, and NaN as strings (stupid NODATA)
+        //      so I am turning it off for now.
+        function execute_chart(uuid, field, label) {
+            //this is "fake" real data
+            $('#preview').html('');
+            //this just does a quick and dirty "display the first 1000 records" request
+            $.getJSON(_base_url + uuid + '/dataset.json?limit=1000&offset=0&sort=obs&order=desc', function() {
+            }).success(function(data) {
+                var obs = [];
+                var vals = [];
+                var data_arr = [];
+
+                var parseDate = d3.time.format('%Y-%m-%dT%H:%M:%SZ').parse;
+
+                $(data.features).each(function(i, feature) {
+                    obs.push(parseDate(feature.properties.observed.split('+')[0] + 'Z'));
+                    v = parseFloat(feature.properties[field]);
+                    vals.push(v == -99 ? null : v);
+                    data_arr.push([parseDate(feature.properties.observed.split('+')[0] + 'Z'), v < 0 ? null : v]);
+                });
+
+                var startdate = new Date(Math.min.apply(null, obs));
+                var enddate = new Date(Math.max.apply(null,obs));
+                //var startval = 0.0;
+                var startval = Math.min.apply(Math, vals) - 1;
+                var endval = Math.max.apply(Math, vals) + 1;
+
+                var margin = {top:20, right:80, bottom: 70, left:50},
+                    width = 860 - margin.left - margin.right,
+                    height = 350 - margin.top - margin.bottom;
+
+                var x = d3.time.scale().range([0, width]);
+                var y = d3.scale.linear().range([height, 0]);
+
+                var x_axis = d3.svg.axis().scale(x).orient('bottom').tickFormat(d3.time.format('%b-%d'));
+                var y_axis = d3.svg.axis().scale(y).orient('left').tickSize(-width);
+
+                //prep the data
+                var line = d3.svg.line()
+                    .interpolate('basis')
+                    .defined(function(d) {return d[1];}) //to skip over null values
+                    .x(function(d) {return x(d[0]); })
+                    .y(function(d) {return y(d[1]); });
+
+                //set up the chart
+                var vis = d3.select('#preview')
+                        .append('svg')
+                        .attr('width', width + margin.left + margin.right)
+                        .attr('height', height + margin.top + margin.bottom)
+                        .append('g')
+                        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+                //set up the axes
+                x.domain(d3.extent(data_arr, function(d) {return d[0];}));
+                y.domain([
+                    startval,
+                    endval
+                ]);
+
+
+                vis.append('g')
+                    .attr('class', 'x axis')
+                    .attr('transform', 'translate(0,' + height + ')')
+                    .call(x_axis)
+                    .selectAll('text')
+                    .attr('transform', 'translate(0, 8)rotate(90)')
+                    .style('text-anchor', 'start');
+                vis.append('g')
+                    .attr('class', 'y axis')
+                    .call(y_axis)
+                    .append('text')
+                        .attr('transform', 'rotate(-90)')
+                        .attr('y', -24)
+                        .style('text-anchor', 'end')
+                        .text(label);
+
+                //add the data series
+                vis.append('path')
+                    .attr('d', line(data_arr));
+
+                //add a title
+                /**vis.append('text')
+                    .attr('x', width/4)
+                    .attr('y', 20)
+                    .text(title); **/
+            }).error(function(jq,err) {
+                console.log(err);
+            });
+        }
+
+        function extract_contact(contact) {
+            //from fgdc metadata after cntinfo
+            var name = '';
+            var org = '';
+            var position = undefined;
+
+            var cntperp = contact.find('cntperp');
+            if (cntperp !== undefined) {
+                name = cntperp.find('cntper').text();
+                org = cntperp.find('cntorg').text();
+            }
+
+            var cntorgp = contact.find('cntorgp');
+            if (cntorgp !== undefined) {
+                name = cntorgp.find('cntper').text();
+                org = cntorgp.find('cntorg').text();
+            }
+
+            position = contact.find('cntpos').text();
+
+            var email = contact.find('cntemail').text();
+            var phone = contact.find('cntvoice').text();
+
+            return {
+                name: name,
+                position: (position !== '') ? position : undefined,
+                organization: org,
+                email: email,
+                phone: phone
+            };
+        }
+    </script>
+
+  </body>
+
+  </html>

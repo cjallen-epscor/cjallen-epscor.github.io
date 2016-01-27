@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>more info</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="vendors/leaflet-0.7/leaflet.css">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+
+    <style>
+        .row {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .row-out-border {
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+    
+        .dataset-grid {
+            margin-bottom: 20px;
+            padding-bottom:5px;
+            min-height:200px;
+            
+        }
+        
+        .dataset-grid h5 {
+            padding: 5px 18px 5px;
+            background-color: #449d44;
+            
+        }
+
+        .dataset-grid h5::before {
+            position:absolute;
+            left:0;
+            content: ' ';
+        }
+
+        .dataset-grid.active {
+            background-color: #c9d5e6;
+        }
+
+        dl.dataset-list dd {
+            margin-bottom: 50px;
+            padding:20px;
+        }
+
+        
+        .dataset-list dt {
+            padding: 5px 18px 5px;
+            background-color: #449d44;
+        }
+
+        .dataset-list dt::before {
+            position:absolute;
+            left:0;
+            content: ' ';
+        }
+
+        .taxonomy {
+            
+        }
+        
+        .taxonomy.geoimage {
+            background-image: url('css/mahjong-icons-64px-v1-martinpersson.org/dragons/dragon-chun.png');
+            background-repeat:no-repeat;
+            background-size: 15px 19px;
+        }
+
+        .taxonomy.vector {
+            background-image: url('css/mahjong-icons-64px-v1-martinpersson.org/winds/wind-west.png');
+            background-repeat:no-repeat;
+            background-size: 15px 19px;
+        }
+
+        .taxonomy.file {
+            background-image: url('css/mahjong-icons-64px-v1-martinpersson.org/man/man5.png');
+            background-repeat:no-repeat;
+            background-size: 15px 19px;
+        }
+
+        #map {
+            width:100%;
+            height:340px;
+        }
+
+        .tab-pane {
+            min-height: 300px;
+        }
+
+        .pagination {
+            margin:0;
+        }
+
+        ul.list-group {
+
+        }
+        ul.list-group list-group-item {
+            width:80%;
+        }
+
+        .list-group-item.active {
+            background-color: #dac7e4;
+            color: #442851;
+        }
+
+        .visuallyHidden { 
+          position: absolute; 
+          overflow: hidden; 
+          clip: rect(0 0 0 0); 
+          height: 1px; width: 1px; 
+          margin: -1px; padding: 0; border: 0; 
+        }
+
+
+    /**for d3**/
+    path {
+        stroke: steelblue;
+        stroke-width: 2;
+        fill: none;
+    }
+
+    /** add .axis line for the axis grid **/
+    .axis path {
+        fill: none;
+        stroke: gray;
+        shape-rendering: crispEdges;            
+    }
+
+    </style>
+  </head>
+  <body>
+    <div class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand"href="#">portal</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">data</a></li>
+                    <li><a href="#">empty page</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+
+        <div class="row row-offcanvas row-offcanvas-left">
+            <!-- side -->
+            <div class="col-xs-3 col-sm-3 col-3 sidebar-offcanvas" id="sidebar">
+                <ul>
+                    <li><a href="#">Preview</a></li>
+                    <li><a href="#">Summary</a></li>
+                    <li><a href="#">Access</a></li>
+                    <li><a href="#">Agencies</a></li>
+                    <li><a href="#">Projects</a></li>
+                </ul>
+            </div>
+
+            <!-- main -->
+            <div class="col-xs-12 col-sm-9 col-9">
+                <div class="row row-out-border">
+                    <div class="col-8 col-sm-12 col-lg-12 clearfix">
+                        <h2 id="description"></h2>
+                    </div>
+                </div>
+                <div class="row row-out-border">
+                    <div class="col-8 col-sm-12 col-lg-12">
+                        <h4>Spatial Coverage</h4>
+                        <div id="map"></div>
+                        <p id="coverage-bbox"></p>
+                    </div>
+                </div>
+                <div id="preview-container">
+                    <div class="row row-out-border">
+                        <div class="col-8 col-sm-12 col-lg-12">
+                            <h4>Preview</h4>
+                        <div id="preview"></div>
+                    </div>
+                </div>
+                </div>
+                <div class="row row-out-border">
+                    <div class="col-8 col-sm-12 col-lg-12 clearfix">
+                        <div id="info"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+  
+
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+  <script src="vendors/leaflet-7/leaflet.js"></script>
+  <script src="js/handlebars.js"></script>
+  <script src="vendors/mustache/mustache.js"></script>
+
+  <script src="http://d3js.org/d3.v2.js"></script>
+  
+    <script id="info_template" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col-4 col-sm-4 col-lg-4">
+                <dl>
+                    <dt>Theme</dt>
+                    <dd>
+                        {{#categories}}
+                            <p>{{theme}} &gt; {{subtheme}} &gt; {{groupname}}<p>
+                        {{/categories}}
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-4 col-sm-4 col-lg-4">
+                <dl>
+                    <dt>Date Added</dt>
+                    <dd>{{lastupdate}}</dd>
+                </dl>
+            </div>
+            <div class="col-4 col-sm-4 col-lg-4">
+                <dl>
+                    <dt>Type</dt>
+                    <dd><span class="taxonomy {{taxonomy}}">&nbsp;&nbsp;&nbsp;&nbsp;{{taxonomy}}</span></dd>
+                </dl>
+            </div>
+        </div>
+         
+        <div>
+            <h4>Description</h4>
+            <p>This land cover data set was produced as part of a cooperative project between the U.S. Geological Survey (USGS) and the U.S. Environmental Protection Agency (USEPA) to produce a consistent, land cover data layer for the conterminous U.S. based on 30-meter Landsat thematic mapper (TM) data. National Land Cover Data (NLCD) was developed from TM data acquired by the Multi-resoultion Land Characterization (MRLC) Consortium. The MRLC Consortium is a partnership of federal agencies that produce or use land cover data. Partners include the USGS (National Mapping, Biological Resources, and Water Resources Divisions), USEPA, the U.S. Forest Service, and the National Oceanic and Atmospheric Administration.</p>
+            <p>The New Mexico NLCD set was produced as part of a project areaencompassing portions of Federal Regions 6. This data set was produced under the direction of the MRLC Regional Land Cover Characterization Project of the USGS EROS Data Center (EDC), Sioux Falls, SD. Questions about the data set can be directed to the MRLC Regional Team at (605) 594-6114 or mrlc@edcmail.cr.usgs.gov.</p>
+        </div>
+        <div class="row">
+            <div class="col-4 col-sm-4 col-lg-4">
+                <h4>Downloads</h4>
+                {{#downloads}}
+                    {{#eachkeys this}}
+                        <a class="label label-primary" href="{{this.value}}">{{this.key}} <span>15MB</span></a>
+                    {{/eachkeys}}
+                {{/downloads}}
+            </div>
+            <div class="col-4 col-sm-4 col-lg-4">
+                <h4>Services</h4>
+                {{#services}}
+                    {{#eachkeys this}}
+                        <a class="label label-primary" href="{{this.value}}">{{this.key}}</a>
+                    {{/eachkeys}}
+                {{/services}}
+            </div>
+
+            <div class="col-4 col-sm-4 col-lg-4">
+                <h4>Documentation</h4>
+                {{#metadata}}
+                    <dl>
+                    {{#eachkeys this}}
+                        <dt>{{this.key}}</dt>
+                        <dd>
+                        {{#eachkeys this.value}}
+                            <a class="label label-primary" href="{{this.value}}">{{this.key}}</a>
+                        {{/eachkeys}}
+                        </dd>
+                    {{/eachkeys}}
+                    </dl>
+                {{/metadata}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9 col-sm-9 col-lg-9">
+                <h4>Agencies</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9 col-sm-9 col-lg-9">
+                <h4>Projects</h4>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-9 col-sm-9 col-lg-9">
+                <h4>Datasets</h4>
+                <ul>
+                    <li><a href="#">First County</a></li>
+                    <li><a href="#">First County</a></li>
+                    <li><a href="#">First County</a></li>
+                    <li><a href="#">First County</a></li>
+                </ul>
+                <button type="submit" id="related-btn" class="btn btn-primary" >View All</button>
+            </div>
+        </div>
+    </script>
+
+   
+
+    <script type="text/javascript">
+        var map;
+    
+
+        //see: http://jsfiddle.net/CPrkV/32/, http://stackoverflow.com/questions/8961939/mustache-js-display-key-instead-of-value
+        Handlebars.registerHelper('eachkeys', function(context, options) {
+          var fn = options.fn, inverse = options.inverse;
+          var ret = "";
+
+          var empty = true;
+          for (key in context) { empty = false; break; }
+
+          if (!empty) {
+            for (key in context) {
+                ret = ret + fn({ 'key': key, 'value': context[key]});
+            }
+          } else {
+            ret = inverse(this);
+          }
+          return ret;
+        });
+      
+      //var _base_url = "http://rgis.unm.edu/gstore/datasets/";
+      var _base_url = 'jsons/';
+      var _base_category_url = "http://rgis.unm.edu/gstore/search/categories.json";
+
+      $(document).ready(function() {
+        var uuid = getUrlVars()['dataset'];
+
+        search_gstore('jsons/'+uuid+'.json', 'info_template', $('#info'));
+
+        map = L.map('map').setView([34.51, -106.26], 6);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                {
+                    attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a><br>RGIS 2013',
+                    maxZoom: 18
+                }).addTo(map);
+
+
+        if (uuid=='8b07ad05-aff4-44f9-ad6f-bf785aa74a7b') {
+            //example of the chart preview
+
+            chart_gstore('jsons/' + uuid + '_data.json', '#preview');
+
+            $('#preview-container').removeClass('visuallyHidden');
+        } else {
+            $('#preview-container').addClass('visuallyHidden');
+        }
+        
+      });
+
+      function search_gstore(url, tmpl, root) {
+        $.getJSON(url, function() {
+            })
+            .success(function(data) {
+                execute_template(tmpl, data, root);               
+            })
+            .error(function(jq, err) {
+                //alert(err);
+                console.log(err);
+            })
+            .done(function(data) {
+                
+               $('#description').html(data.description);
+            
+               var bbox = $.map(data.spatial.bbox, function(v) {return parseFloat(v);});
+
+               var geom;
+               if (bbox[0] == bbox[2] && bbox[1] == bbox[3]) {
+                    geom = L.marker([bbox[1], bbox[0]]);
+               } else { 
+                    geom = L.polygon([
+                            [bbox[1], bbox[0]],
+                            [bbox[1], bbox[2]], 
+                            [bbox[3], bbox[2]],
+                            [bbox[3], bbox[0]]
+                        ], {fillColor: '#21aae9', fillOpacity: 0.5, stroke: false});
+               }
+               
+                geom.addTo(map);
+               $('#coverage-bbox').html('BBOX: ' + data.spatial.bbox);
+            });
+      }
+
+      function execute_template(template, data, root) {
+        var template = Handlebars.compile(document.getElementById(template).innerHTML);
+        root.html(template(data));
+      }
+
+      function chart_gstore(url, root_id) {
+        $.getJSON(url, function() {
+        })
+        .success(function(data) {
+            var obs = [];
+            var vals = [];
+            var data_arr = [];
+            
+            var parseDate = d3.time.format('%Y-%m-%dT%H:%M:%SZ').parse;
+
+            $(data.features).each(function(i, feature) {
+                obs.push(parseDate(feature.properties.observed.split('+')[0] + 'Z'));
+                v = parseFloat(feature.properties.tavgh_1);
+                vals.push(v < 0 ? null : v);
+                data_arr.push([parseDate(feature.properties.observed.split('+')[0] + 'Z'), v < 0 ? null : v]);
+            });
+
+            var startdate = new Date(Math.min.apply(null, obs));
+            var enddate = new Date(Math.max.apply(null,obs));
+            var startval = 0.0;
+            var endval = Math.max.apply(Math, vals) + 1;
+
+            var margin = {top:20, right:80, bottom: 70, left:50},
+                width = 860 - margin.left - margin.right,
+                height = 350 - margin.top - margin.bottom;
+
+            var x = d3.time.scale().range([0, width]);
+            var y = d3.scale.linear().range([height, 0]);
+
+            var x_axis = d3.svg.axis().scale(x).orient('bottom').tickFormat(d3.time.format('%b-%d'));
+            var y_axis = d3.svg.axis().scale(y).orient('left').tickSize(-width);
+
+            //prep the data
+            var line = d3.svg.line()
+                .interpolate('basis')
+                .defined(function(d) {return d[1];}) //to skip over null values
+                .x(function(d) {return x(d[0]); })
+                .y(function(d) {return y(d[1]); });
+
+            //set up the chart
+            var vis = d3.select(root_id)
+                    .append('svg')
+                    .attr('width', width + margin.left + margin.right)
+                    .attr('height', height + margin.top + margin.bottom)
+                    .append('g')
+                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+            //set up the axes
+            x.domain(d3.extent(data_arr, function(d) {return d[0];}));
+            y.domain([
+                startval,
+                endval
+            ]);
+
+
+            vis.append('g')
+                .attr('class', 'x axis')
+                .attr('transform', 'translate(0,' + height + ')')
+                .call(x_axis)
+                .selectAll('text')
+                .attr('transform', 'translate(0, 8)rotate(90)')
+                .style('text-anchor', 'start');
+            vis.append('g')
+                .attr('class', 'y axis')
+                .call(y_axis)
+                .append('text')
+                    .attr('transform', 'rotate(-90)')
+                    .attr('y', -24)
+                    .style('text-anchor', 'end')
+                    .text('Average Temperature (degrees C)');
+                    
+            //add the data series
+            vis.append('path')
+                .attr('d', line(data_arr));
+
+            //add a title
+            /**vis.append('text')
+                .attr('x', width/4)
+                .attr('y', 20)
+                .text(title); **/
+        })
+        .error(function(jq, err) {alert(err);});
+      }
+
+
+        function getUrlVars()
+        {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for(var i = 0; i < hashes.length; i++)
+            {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+    </script>
+
+  </body>
+</html>

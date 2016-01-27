@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Energize New Mexico | Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="vendors/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/eternicode-bootstrap-datepicker/css/datepicker.css">
+
+    <link rel="stylesheet" href="vendors/leaflet-0.7/leaflet.css">
+    <link rel="stylesheet" href="vendors/leaflet.draw/dist/leaflet.draw.css">
+    <link rel="stylesheet" href="vendors/leaflet-markers/leaflet.awesome-markers.css">
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="css/search.css">
+  </head>
+  <body>
+
+
+    <div class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html"><img src="css/images/nmepscor_logo_220.png"></a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="portal.html">DATA</a></li>
+                    <li><a href="#">PAGE</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="ribbon-wrapper">
+        <div class="ribbon">
+            <p>PROOF OF CONCEPT</p>
+        </div>
+    </div>
+    
+    <div class="container">
+
+        <div class="row row-offcanvas row-offcanvas-left">
+            <!-- side -->
+            <div class="col-xs-3 col-sm-3 col-3 sidebar-offcanvas" id="sidebar">
+                <button type="submit" id="search-btn" class="btn btn-block btn-primary" style="margin-bottom:10px;">Search</button>
+                <button id="reset-btn" class="btn btn-block btn-info" style="margin-bottom:10px;">Reset</button>
+                
+
+                <div class="sidebar-section adjust-padding">
+                    <h5>Keywords</h5>
+                    <div id="keyword-search" class="">
+                        <form role="form">
+                            <div class="form-group">
+                                <input id="keyword-input" type="text" class="form-control" placeholder="Enter a word or phrase...">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h5>Categories</h5>
+                    <div id="category-search" class="" style="max-height: 450px;overflow-y:auto;">
+                        <div id="category-results"></div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section adjust-padding">
+                    <h5>Date Range</h5>
+                    <div>
+                        <input id="start-datepicker" class="datepicker" >
+                        <input id="end-datepicker" class="datepicker" >
+                    </div>
+                </div>
+
+                <div class="well danger sidebar-well">
+                    <p>This is intended only as a proof of concept
+                        interface for the GSTORE API. It is not meant
+                        for live data access. Please visit <a href="http://gstore.unm.edu">GSTORE</a>
+                        and <a href="http://nmepscor.org">NM EPSCoR</a> for
+                        data access. 
+                    </p>
+                </div>
+            </div>
+
+            <!-- main -->
+            <div class="col-xs-12 col-sm-9 col-9">
+                <div class="row row-out-border">
+                    <div class="col-8 col-sm-12 col-lg-12 row-bottom-border">
+                        <div id="map"></div>
+                    </div>
+                    <div class="col-8 col-sm-12 col-lg-12 clearfix row-bottom-border">
+                        <h4>Filters for this result set</h4>
+                        <div id="selected-facets">
+                            <p>You haven't selected any filters.</p>
+                        </div>
+                    </div>
+                    <div class="col-8 col-sm-12 col-md-12 col-lg-12 clearfix row-bottom-border">
+                        <div id="results-options">
+                            <div id="results-count"></div>
+                            <div id="results-pager" class="pagination"></div>
+                            <div class="btn-group" id="results-display">
+                                <button type="button" id="search-grid" class="btn btn-sm btn-inverse active"><i class="icon-th icon-white"></i></button>
+                                <button type="button" id="search-list" class="btn btn-sm btn-inverse"><i class="icon-align-justify icon-white"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8 col-sm-8 col-md-12 col-lg-12 clearfix">
+                        <div id="results" ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Connect with NM EPSCoR</h2>
+                    <ul class="list-inline">
+                        <li><a href="https://www.facebook.com/NewMexicoEPSCoR"><img src="css/images/facebook.png"></a></li>
+                        <li><a href="https://twitter.com/NMEPSCoR"><img src="css/images/twitter.png"></a></li>
+                        <li><a href="http://www.youtube.com/user/NewMexicoEPSCoR"><img src="css/images/you-tube.png"></a></li>
+                        <li><a href="https://plus.google.com/108867721035147850763"><img src="css/images/google-plus.png"></a></li>
+                        <li><a href="http://www.flickr.com/people/nm_epscor/"><img src="css/images/flickr.png"></a></li>
+                    </ul>
+                    <h2>Subscribe to our Mailing List</h2>
+                    <form>
+                        <input type="email" class="form-control" placeholder="email address">
+                        <p>button</p>
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <h2>Resources</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="http://nmepscor.org/blog">NM EPSCoR Blog</a></li>
+                        <li><a href="http://nmepscor.org/data_portal/browse-data">Data Portal</a></li>
+                        <li><a href="http://nmepscor.org/contact">Contact NM EPSCoR</a></li>
+                        <li><a href="http://reporting.nmepscor.org">NM EPSCoR Reporting</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-5">
+                    <p class="footer-text">New Mexico EPSCoR Program is funded by the National Science Foundation (NSF) award #IIA-1301346. Any opinions, findings, conclusions, or recommendations expressed in the material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.  
+                    <a href="http://www.nsf.gov/" target="_blank" alt="National Science Foundation"><br/><img src="css/images/nsf-logo-transparent.png"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendors/leaflet-0.7/leaflet.js"></script>
+    <script src="js/jquery.bootpag.min.js"></script>
+    <script src="vendors/eternicode-bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="vendors/mustache/mustache.js"></script>
+    <script src="js/handlebars.js"></script>
+    <script src="vendors/leaflet.draw/dist/leaflet.draw.js"></script>
+    <script src="vendors/leaflet-markers/leaflet.awesome-markers.min.js"></script>
+
+    <script src="vendors/browserstate/scripts/bundled/html4+html5/jquery.history.js"></script>
+
+    <script src="js/handlebar_helpers.js"></script>
+    <script src="js/utils.js"></script>
+
+    <script id="search_grid_template" type="text/x-handlebars-template">
+        {{#results}}
+            <div class="dataset-grid col-4 col-md-4 col-lg-4" id="dataset-{{uuid}}">
+                <h5 class="{{taxonomy}}"><a href="#" onClick="selectDataset('{{uuid}}', true);">{{description}}</a></h5>
+                <div class="block">
+                    {{#abstract}}
+                        <p>{{abstract}}</p>
+                    {{/abstract}}
+                    <a class="hover-tip" data-content="&lt;div&gt; {{#downloads}}{{#eachkeys this}} &lt;a class=&quot;dataset-download&quot; href=&quot;{{this.value}}&quot;&gt;{{this.key}}&lt;/a&gt;{{/eachkeys}}{{/downloads}}&lt;/div&gt;">Downloads</a> | 
+                    <a class="hover-tip {{^services}}disabled{{/services}}" data-content="&lt;div&gt; {{#services}}{{#eachkeys this}} &lt;a class=&quot;dataset-download&quot; href=&quot;{{this.value}}&quot;&gt;{{this.key}}&lt;/a&gt; {{/eachkeys}}{{/services}} &lt;/div&gt;">Services</a> | 
+                    <a class="hover-tip" data-content="&lt;div&gt; {{#metadata}} &lt;dl&gt; {{#eachkeys this}} &lt;dt&gt; {{this.key}} &lt;/dt&gt; &lt;dd&gt; {{#eachkeys this.value}}&lt;a class=&quot;dataset-download&quot; href=&quot;{{this.value}}&quot;&gt;{{this.key}}&lt;/a&gt;  {{/eachkeys}} &lt;/dd&gt; {{/eachkeys}} &lt;/dl&gt; {{/metadata}}  &lt;/div&gt;">Metadata</a>
+                    <div class="btn-block">
+                        <button class="btn btn-custom btn-default btn-sm preview {{^services}}disabled{{/services}}" data-toggle="button" data-wms="{{#services}}{{#eachkeys this}}{{#xif " this.key==\"wms\" "}}{{this.value}}{{/xif}}{{/eachkeys}}{{/services}}" data-layer="{{name}}">Add to map</button> 
+                        
+                        <button class="btn btn-default btn-sm btn-custom btn-info" data-ref="info.html?uuid={{uuid}}&type={{taxonomy}}">More info</button>
+                    </div>
+                </div>
+            </div>
+        {{/results}}
+    </script>
+
+    <script id="search_list_template" type="text/x-handlebars-template">
+        <dl class="dataset-list">
+            {{#results}}
+                <dt class="{{taxonomy}}"><a href="#" onClick="selectDataset('{{uuid}}', true);">{{description}}</a></dt>
+                <dd id="dataset-{{uuid}}">
+                    <div style="float:left;">
+                        {{#abstract}}
+                            <p>{{abstract}}</p>
+                        {{/abstract}}
+                        {{^abstract}}
+                            <p>No abstract</p>
+                        {{/abstract}}
+                    </div>
+                    <div style="float:right;">
+                        <a class="hover-tip" data-content="&lt;div&gt; {{#downloads}}{{#eachkeys this}} &lt;a class=&quot;dataset-download&quot; href=&quot;{{this.value}}&quot;&gt;{{this.key}}&lt;/a&gt;{{/eachkeys}}{{/downloads}}&lt;/div&gt;">Downloads</a> | 
+                    <a class="hover-tip {{^services}}disabled{{/services}}" data-content="&lt;div&gt; {{#services}}{{#eachkeys this}} &lt;a class=&quot;dataset-download&quot; href=&quot;{{this.value}}&quot;&gt;{{this.key}}&lt;/a&gt; {{/eachkeys}}{{/services}} &lt;/div&gt;">Services</a> | 
+                    <a class="hover-tip" data-content="&lt;div&gt; {{#metadata}} &lt;dl&gt; {{#eachkeys this}} &lt;dt&gt; {{this.key}} &lt;/dt&gt; &lt;dd&gt; {{#eachkeys this.value}}&lt;a class=&quot;dataset-download&quot; href=&quot;{{this.value}}&quot;&gt;{{this.key}}&lt;/a&gt;  {{/eachkeys}} &lt;/dd&gt; {{/eachkeys}} &lt;/dl&gt; {{/metadata}}  &lt;/div&gt;">Metadata</a>
+                        <div class="btn-block">
+                            <button class="btn btn-custom btn-default btn-sm preview {{^services}}disabled{{/services}}" data-toggle="button" data-wms="{{#services}}{{#eachkeys this}}{{#xif " this.key==\"wms\" "}}{{this.value}}{{/xif}}{{/eachkeys}}{{/services}}" data-layer="{{name}}">Add to map</button> 
+                            <button class="btn btn-default btn-sm btn-custom btn-info" data-ref="info.html?uuid={{uuid}}&type={{taxonomy}}">More info</button>
+                        </div>
+                    </div>
+                </dd>
+            {{/results}}
+        </dl>
+    </script>
+
+    <script id="category_template" type="text/x-handlebars-template">
+        {{#theme}}
+            <div><span class="badge"><a href="#" onClick="reset_category('all');">Clear</a></span></div>
+            <h5><a href="#" id="theme-{{.}}" onClick="reset_category('subtheme-{{.}}')">{{.}}</a> <span class="badge"><a href="#" onClick="reset_category('theme-{{.}}');">x</a></span></h5>
+        {{/theme}}
+        {{#subtheme}}
+            <h6><a href="#" id="subtheme-{{.}}" onClick="reset_category('subtheme-{{.}}')">{{.}}</a> <span class="badge"><a href="#" onClick="reset_category('subtheme-{{.}}');">&#94;</a></span></h6>
+        {{/subtheme}}
+        <ul class="list-group" id="lg-{{level}}">
+            {{#results}}
+                <li class="list-group-item category"><a href="#" id="lgi-{{text}}" onClick="update_category(this);">{{text}} </a></li>
+            {{/results}}            
+        </ul>
+    </script>
+    <!-- {{^leaf}}<span class="badge">&gt;</span>{{/leaf}} -->
+
+    <script id="facets_template" type="text/x-handlebars-template">
+        {{#params}}
+            {{#keywords}}
+                <p>Keywords: <a href="#">{{text}} <span class="badge"><a href="#" onClick="remove_facet('keywords');">&times;</a></span></a></p>
+            {{/keywords}}
+            {{#category}}
+                <p>Category: <a href="#">{{text}} <span class="badge"><a href="#" onClick="remove_facet('category');">&times;</a></span></a></p>
+            {{/category}}
+            {{#start_year}}
+                <p>Start Date: <a href="#">{{text}} <span class="badge"><a href="#" onClick="remove_facet('start_year');">&times;</a></span></a></p>
+            {{/start_year}}
+            {{#end_year}}
+                <p>End Date: <a href="#">{{text}} <span class="badge"><a href="#" onClick="remove_facet('end_year');">&times;</a></span></a></p>
+            {{/end_year}}
+            {{#bbox}}
+                <p>BBOX: <a href="#">{{text}} <span class="badge"><a href="#" onClick="remove_facet('bbox');">&times;</a></span></a></p>
+            {{/bbox}}
+        {{/params}}
+        {{^params}}
+            <p>You haven't selected any search options.</p>
+        {{/params}}
+    </script>
+
+    <script type="text/javascript">
+
+        var map;      
+        var layers = {};
+        var feat_group;
+        var drawnItems;
+
+        var limit = 15;
+
+        var base_url = "http://gstore.unm.edu/apps/energize/search/datasets.json";
+        var base_category_url = "http://gstore.unm.edu/apps/energize/search/categories.json";
+
+        var searcher = new DatasetSearch(base_url, limit, 0);
+
+        var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a><br>NM EPSCoR 2014';
+
+        //TODO: not displaying font awesome marker (or glyphicon)
+        var selectedIcon = L.AwesomeMarkers.icon({
+            icon: 'map-marker',
+            prefix: 'fa',
+            markerColor: 'red'
+        });
+        var unselectedIcon = L.AwesomeMarkers.icon({
+            icon: 'map-marker',
+            prefix: 'fa',
+            markerColor: 'blue',
+            iconColor: 'white'
+        });
+
+
+        // search widget
+        function DatasetSearch(base_url, limit, offset) {
+            this.base_url = base_url;
+            this.limit = limit;
+            this.offset = offset;
+            this.version = 3;
+            this.sort_field = 'lastupdate';
+            this.sort_order = 'desc';
+
+            this.theme = '';
+            this.subtheme = '';
+            this.groupname = '';
+            this.keywords = '';
+
+            this.start_year = '';
+            this.end_year = '';
+
+            // as [minx, miny, maxx, maxy]
+            this.bbox = [];
+        }
+        DatasetSearch.prototype.build_url = function () {
+            query_params = [];
+            if (this.limit !== 0) {
+                query_params.push('limit=' + this.limit);
+            }
+            if (this.offset !== 0) {
+                query_params.push('offset=' + this.offset);
+            }
+            if (this.version !== 0) {
+                query_params.push('version=' + this.version);
+            }
+            if (this.sort_field !== '') {
+                query_params.push('sort=' + this.sort_field);
+            }
+            if (this.sort_order !== '') {
+                query_params.push('dir=' + this.sort_order);
+            }
+
+            if (this.theme !== '' && this.theme !== undefined) {
+                query_params.push('theme=' + this.theme.replace(/ /g, '+'));
+            }
+
+            if (this.subtheme !== '' && this.subtheme !== undefined) {
+                query_params.push('subtheme=' + this.subtheme.replace(/ /g, '+'));
+            }
+
+            if (this.groupname !== '' && this.groupname !== undefined) {
+                query_params.push('groupname=' + this.groupname.replace(/ /g, '+'));
+            }
+
+            if (this.keywords !== '' && this.keywords !== undefined) {
+                query_params.push('query=' + this.keywords.replace(/ /g, '+'));
+            }
+
+            ///to yyyyMMdd from mm/dd/yyyy
+            if (this.start_year !== '' && this.start_year !== undefined) {
+                var parts = this.start_year.split('/');
+                query_params.push('start_time=' + ([parts[2], parts[0], parts[1]]).join(''));
+            }  
+            if (this.end_year !== '' && this.end_year !== undefined) {
+                var parts = this.end_year.split('/');
+                query_params.push('end_time=' + ([parts[2], parts[0], parts[1]]).join(''));
+            } 
+
+            //TODO: box= is appended but empty
+            if (this.bbox !== undefined && this.bbox.length > 0) {
+                query_params.push('box='+this.bbox.join(','));
+            }
+
+            return this.base_url + '?' + query_params.join('&');
+        };
+        DatasetSearch.prototype.to_facets = function() {
+            params = [];
+            var cats, cat_id;
+            //to keep the panels and the selected facets in sync
+            if ((this.theme !== '' && this.theme !== undefined) && 
+                (this.subtheme == '' || this.subtheme === undefined)) {
+                    cats = this.theme;
+                    cat_id = this.theme;
+            }
+
+            if ((this.theme !== '' && this.theme !== undefined) && 
+                (this.subtheme !== '' && this.subtheme !== undefined) && 
+                (this.groupname == '' || this.groupname === undefined)) {
+                    cats = [this.theme, this.subtheme].join(' / ');
+                    cat_id = this.subtheme;
+            }
+
+            if ((this.theme !== '' && this.theme !== undefined) && 
+                (this.subtheme !== '' && this.subtheme !== undefined) && 
+                (this.groupname !== '' && this.groupname !== undefined)) {
+                    cats = [this.theme, this.subtheme, this.groupname].join(' / ');
+                    cat_id = this.groupname;
+            }
+
+            if (cats !== undefined && cats !== '') {
+                params.push({'category': {'text': cats, 'id': cat_id}});
+            }
+
+            if (this.keywords !== '' && this.keywords !== undefined) {
+                params.push({'keywords': {'text':this.keywords, 'id': 'keyword-input'}});
+            }
+
+            if (this.start_year !== '' && this.start_year !== undefined) {
+                params.push({'start_year': {'text': this.start_year, 'id': 'startdate-input'}});
+            }
+            if (this.end_year !== '' && this.end_year !== undefined) {
+                params.push({'end_year': {'text': this.end_year, 'id': 'enddate-input'}});
+            }
+
+            if (this.bbox.length > 0 && this.bbox !== undefined) {
+                params.push({'bbox': {'text': this.bbox.join(','), 'id': 'bbox-input'}});
+            }
+            return {'params': params};
+        };
+        DatasetSearch.prototype.to_query = function(query_string) {
+            //convert the query string from build_url to a kvp
+            return parse_query(query_string);
+        };
+
+        $(document).ready(function() {
+
+            $('#results-display button').click(function() {
+                choice = $(this).attr('id');
+                var tmpl = choice === 'search-list' ? 'search_list_template' : 'search_grid_template';
+
+                //don't do this. we just want to cache the results somewhere instead
+                search_gstore(searcher.build_url(), tmpl, $('#results'), false, false, {}, true);
+
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+            });
+
+            $('#search-btn').click(function() {
+                var keywords = $('#keyword-input').val();
+                if (keywords !== '' && keywords !== undefined) {
+                    searcher.keywords = keywords;
+                }
+
+                var start_date = $('#start-datepicker').val();
+                if (start_date !== '' && start_date !== undefined) {
+                    searcher.start_year = start_date;
+                }
+                var end_date = $('#end-datepicker').val();
+                if (end_date !== '' && end_date !== undefined) {
+                    searcher.end_year = end_date;
+                }
+
+                searcher.offset = 0;
+
+                var tmpl = $('#results-display button.active').attr('id') == 'search-list' ? 'search_list_template' : 'search_grid_template';
+
+                search_gstore(searcher.build_url(), tmpl, $('#results'), true, false, {}, true);
+
+                execute_template('facets_template', searcher.to_facets(), $('#selected-facets'), false);
+
+                update_query();
+            });
+
+            /** TODO: this is loading to null **/
+            $('#reset-btn').click(function() {
+                searcher = new DatasetSearch(base_url, limit, 0);
+                search_gstore(searcher.build_url(), 'search_grid_template', $('#results'), true, false, {}, true);
+                //search_gstore(base_category_url, 'category_template', $('#category-results'), false, false, {"level": "theme"}, false);
+                //execute_template('facets_template', searcher.to_facets(), $('#selected-facets'), false);
+            });
+
+            $('.datepicker').datepicker({
+                format: 'mm/dd/yyyy'
+            });
+
+            map = L.map('map').setView([34.51, -106.26], 6);
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                attribution: attribution,
+                maxZoom: 18
+            }).addTo(map);
+
+            drawnItems = new L.FeatureGroup();
+            map.addLayer(drawnItems);
+
+            var drawControl = new L.Control.Draw({
+                edit: {
+                    featureGroup: drawnItems
+                },
+                draw: {
+                    polyline: false,
+                    polygon: false,
+                    marker: false,
+                    circle: false
+                }
+            });
+            map.addControl(drawControl);
+
+            map.on('draw:created', function(e) {  
+            if (drawnItems.getLayers().length > 0) {
+                return;                
+            }
+
+            var type = e.layerType,
+            layer = e.layer;
+
+            drawnItems.addLayer(layer);
+                update_bbox(drawnItems.getBounds());
+            })
+            .on('draw:deleted', function(e) {
+                update_bbox(undefined);
+            })
+            .on('draw:edited', function(e) {
+                update_bbox(drawnItems.getBounds());
+            });
+
+            //check for query params from the landing page (or wherever)
+            //and update the searcher
+            params = parse_query();
+
+            $.each(params, function(k, v) {
+                searcher[k] = v;
+            });
+
+            //and execute the initial searches
+            search_gstore(searcher.build_url(), 'search_grid_template', $('#results'), true, false, {}, true);
+            search_gstore(base_category_url, 'category_template', $('#category-results'), false, false, {"level": "theme"}, false);
+            execute_template('facets_template', searcher.to_facets(), $('#selected-facets'), false);
+        });
+
+        function update_bbox(bounds) {
+            if (bounds !== undefined) {
+                searcher.bbox = bounds.toBBoxString().split(',');
+                searcher.sort_field='geo_relevance';
+                searcher.sort_order = 'asc';
+            } else {
+                searcher.bbox = [];
+                searcher.sort_field = '';
+                searcher.sort_order = '';
+            }
+            searcher.offset = 0;
+
+            //TODO: switch to the selected list v grid button
+            search_gstore(searcher.build_url(), 'search_grid_template', $('#results'), false, false, {}, true);
+            execute_template('facets_template', searcher.to_facets(), $('#selected-facets'), false);
+        }
+
+        //TODO: if popup open on new search, the marker stays
+        function selectDataset(uuid, not_marker) {
+            var d = $('#dataset-'+uuid);
+            var is_active = d.hasClass('active');
+            var box = feat_group.getLayer(uuid);
+
+            if (is_active) {
+                box.closePopup(); 
+            } else {
+                box.openPopup();
+            }
+        }
+
+        function toggle_wms(event) {
+            var is_active = $(this).hasClass('active');
+
+            /**
+            TODO: the getcapabilities from the response includes
+                  the service, request and version params. the leaflet
+                  request appends them again for the getmap calls.
+                  so strip out the params in the template (or here)
+                  to avoid confusion.
+            **/
+            var wms_gc = this.getAttribute('data-wms');
+            var wms_layer = this.getAttribute('data-layer');
+
+            
+            /**
+            TODO: really should pull from the getcapabilities
+                  on their own, the gstore basenames may be invalid
+            **/
+            if ($.isNumeric(wms_layer[0])) {
+                wms_layer = 'g_' + wms_layer;
+            }
+
+            if (is_active) {
+                if (layers[wms_layer]) {
+                    map.removeLayer(layers[wms_layer]);
+                }
+            } else {
+                var lyr = L.tileLayer.wms(wms_gc, {
+                    layers: wms_layer,
+                    format: 'image/png',
+                    transparent: true
+                }).addTo(map).bringToFront();
+
+                layers[wms_layer] = lyr;
+            }
+        }
+
+        function clear_layers() {
+            for (var i = 0; i < layers.length; i++) {
+                map.removeLayer(layers[i]);
+            }
+
+            //drop all the bboxes
+            if (feat_group !== undefined) {
+                feat_group.clearLayers();
+            }
+        }
+
+        /**
+        data_apd = dict where k,v will be appended to the root of the data response
+        so we can monkey with the category tree responses
+        **/
+        function search_gstore(url, tmpl, root, update_page, apd, data_apd, update_map) {
+            $.getJSON(url, function() {
+            })
+            .success(function(data) {
+                if (data_apd !== undefined) {
+                    for (key in data_apd) {
+                        data[key] = data_apd[key];
+                    }
+                }
+
+                execute_template(tmpl, data, root, apd);      
+
+                if (update_page) {
+                    update_pager(data.total, Math.ceil(searcher.offset / limit));
+                }
+                    
+            })
+            .error(function(jq, err) {
+                console.log(err);
+            })
+            .done(function(data) {
+                //add the bboxes or point markers for the results to the map
+                if (update_map===true && update_map !== undefined) {
+                    clear_layers();
+
+                    var boxes = [];
+                    $.each(data.results, function(i, item) {
+                        var basename = item.name;
+                        var uuid = item.uuid;
+                        
+                        var bbox = $.map(item.spatial.bbox, function(v) {return parseFloat(v);});
+
+                        var geom;
+                        if (bbox[0] == bbox[2] && bbox[1] == bbox[3]) {
+                            geom = L.marker([bbox[1], bbox[0]], {icon: unselectedIcon});
+                        } else { 
+                            geom = L.polygon([
+                                    [bbox[1], bbox[0]],
+                                    [bbox[1], bbox[2]], 
+                                    [bbox[3], bbox[2]],
+                                    [bbox[3], bbox[0]]
+                                ], {color: 'red', fillOpacity: 0.0, weight: 0.75});
+                        }
+                        geom.bindPopup(item.description);
+                        geom._leaflet_id = uuid;
+                        boxes.push(geom);
+                    });
+
+                    feat_group = new L.FeatureGroup(boxes);
+                    feat_group.addTo(map);
+
+                    if (drawnItems.getLayers().length > 0) {
+                        bnds = drawnItems.getBounds();                
+                    } else {
+                        bnds = feat_group.getBounds();
+                    }
+
+                    map.fitBounds(bnds);
+
+                    map.on('popupopen', function(e) {
+                        var src = e.popup._source;
+                        $('#dataset-'+src._leaflet_id).addClass('active');
+                        if (src._originalPoints) {
+                            //it's a bbox
+                            src.setStyle({fillColor:'#557bb0'});
+                            src.setStyle({fillOpacity:0.5});
+                        } else {
+                            //it's not
+                            src.setIcon(selectedIcon);
+                        }
+                        
+                    })
+                    .on('popupclose', function(e) {
+                        var src = e.popup._source;
+                        $('#dataset-'+src._leaflet_id).removeClass('active');
+                        if (src._originalPoints) {
+                            src.setStyle({fillColor:null});
+                            src.setStyle({fillOpacity:0.0});
+                        } else {
+                            src.setIcon(unselectedIcon);
+                        }
+                    });
+                }
+
+                $('a.hover-tip').not('.disabled').popover({html:true, placement: 'top'});
+                $('button.preview').bind('click', toggle_wms);
+                $('button.btn-info').bind('click', redirect);
+            });
+        }
+
+        function execute_template(template, data, root, apd) {
+            var template = Handlebars.compile(document.getElementById(template).innerHTML)       
+            if (apd) {
+                root.append(template(data));
+            } else {
+                root.html(template(data));
+            }
+        }
+
+        function update_pager(cnt, init_page) {
+            $('#results-pager').bootpag({
+                total: Math.ceil(cnt / limit),
+                page: (init_page !== undefined && init_page > 0) ? init_page : 1, //keep track of the current page of the results
+                maxVisible: 10,
+                leaps: true
+            }).on("page", function(event, num) {
+                searcher.offset = (num - 1) * limit;
+                search_gstore(searcher.build_url(), 'search_grid_template', $('#results'), false, false, {}, true);
+                update_query();
+            });
+
+            //not sure what's going on the with the pager (possibly related with change from bootstrap 2 to 3), but
+            //without this it doesn't style correctly.
+            $('#results-pager ul.bootpag').addClass('pagination').addClass('pagination-sm');
+
+            $('#results-count').html('<p>Your search returned '+cnt.toLocaleString()+' datasets.</p>');
+        } 
+
+        function update_category(o) {
+            var id = o.getAttribute('id');
+            var value = '';
+            var level = 'theme';
+
+            //in case it's the h# element
+            if (id.indexOf('theme-') === 0) {
+                value = id.replace('theme-', '');
+            } else {
+                value = id.replace('lgi-', '');
+                elem = $("a[id='lgi-" + value + "']");
+                level = elem.parent().parent().attr('id').replace('lg-','');
+            }
+
+            data_apd = {'level': level};
+
+            if (level==='subtheme') {
+                //theme + subtheme (don't care about the groupnames here)
+                params = '?node=' + [searcher.theme.replace(/ /g, '+'), value.replace(/ /g, '+')].join('__|__');
+                searcher.subtheme = value;
+                data_apd['level'] = 'groupname';
+                data_apd['leaf'] = 'yes';
+            } else if (level==='theme') {
+                //theme
+                params = '?node=' + value.replace(/ /g, '+');
+                searcher.theme = value;
+                data_apd['level'] = 'subtheme';
+
+            } else {
+
+                if (elem.parent('li:not(.active)').length > 0 ) {
+                    elem.parent('li:not(.active)').addClass('active');
+                    searcher.groupname = value;
+                } else {
+                    elem.parent('li').removeClass('active');
+                    searcher.groupname = '';
+                }
+                return;
+            }
+            if (searcher.theme !== '') {
+                data_apd['theme'] = searcher.theme;
+            }
+            if (searcher.subtheme !== '') {
+                data_apd['subtheme'] = searcher.subtheme;
+            }
+            if (searcher.groupname !== '') {
+                data_apd['groupname'] = searcher.groupname;
+            }
+
+            search_gstore(base_category_url + params, 'category_template', $('#category-results'), false, false, data_apd);
+        }
+
+        function reset_category(value) {
+            if (value.indexOf('theme-') === 0 || value === 'all') {
+                searcher.theme = '';
+                searcher.subtheme = '';
+                searcher.groupname = '';
+                search_gstore(base_category_url, 'category_template', $('#category-results'), false, false, {"level": "theme"});
+            } else if (value.indexOf('subtheme-') === 0) {
+                searcher.subtheme = '';
+                searcher.groupname = '';
+                update_category(document.getElementById('theme-' + searcher.theme));
+            }
+        }
+
+        function remove_facet(facet) {
+            if (facet === 'keywords') {
+                searcher.keywords = '';
+                $('input#keyword-input').val('');
+            } else if (facet === 'category') {
+                reset_category('all');
+            } else if (facet === 'bbox') {
+                searcher.sort_field = '';
+                searcher.sort_order = '';
+                searcher.bbox = [];
+            } else if (facet === 'start_year') {
+                searcher.start_year = '';
+                $('input#start-datepicker').val('');
+            } else if (facet === 'end_year') {
+                searcher.end_year = '';
+                $('input#end-datepicker').val('');
+            }
+            var tmpl = $('#results-display button.active').attr('id') === 'search-list' ? 'search_list_template' : 'search_grid_template';
+            search_gstore(searcher.build_url(), tmpl, $('#results'), true, false, {}, true);
+
+            execute_template('facets_template', searcher.to_facets(), $('#selected-facets'), false);
+
+            update_query();
+        }
+
+        function update_query() {
+            //run the history.js to update the query params
+            var partial_url = searcher.build_url().replace(base_url, '');
+            var params = searcher.to_query(partial_url.substr(1));
+            History.pushState(params, null, partial_url);
+        }
+
+    </script>
+
+  </body>
+</html>
