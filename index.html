@@ -41,8 +41,6 @@
             <!-- side -->
             <div class="col-xs-3 col-sm-3 col-3 sidebar-offcanvas" id="sidebar">
               
-                
-
                 <div class="sidebar-section adjust-padding">
                     <h5>Keywords</h5>
                     <div id="keyword-search" class="">
@@ -54,14 +52,15 @@
                     </div>
                 </div>
                 
-                <div class="sidebar-section">
-                    <h5>Categories</h5>
+         <div class="sidebar-section">
+                	<h3>Filter Options</h3>
+                
+                    <h5>Component</h5>
                     <div id="category-search" class="" style="max-height: 450px;overflow-y:auto;">
                         <div id="category-results"></div>
                     </div>
-                </div>
-
-                <div class="sidebar-section adjust-padding">
+                
+                  <div class="sidebar-section adjust-padding">
                     <h5>Date Range</h5>
                     <div class="form-group">
                         <label for="start-datepicker">Start</label>
@@ -71,12 +70,33 @@
                         <label for="end-datepicker">End</label>
                         <input id="end-datepicker" class="datepicker" >
                     </div>
-                </div>
-                <!--Start "Search Button"-->
-                  <button type="submit" id="search-btn" class="btn btn-block btn-primary" style="margin-bottom:10px;">Search</button>
-                <!-- <button id="reset-btn" class="btn btn-block btn-info" style="margin-bottom:10px;">Reset</button> -->
+                  </div>
                 
+                   <div class="sidebar-section adjust-padding">
+                    <h5>Creator</h5>
+                      <div id="filter-creator-options">
+                        <div id="filter-creator-options"></div>
+                      </div>  
+                    </div>
+                    
+                    <div class="sidebar-section adjust-padding">
+                    <h5>Year</h5>
+                      <div id="filter-creator-options">
+                        <div id="filter-year-options"></div>
+                      </div>
+                    </div>
+                      
+                    <div class="sidebar-section adjust-padding">
+                    <h5>Location</h5>
+                       <div id="filter-creator-options">
+                        <div id="filter-location-options"></div>
+                      </div>
+                    </div>
+                
+                <!--Start "Search Button"-->
+                  <button type="submit" id="search-btn" class="btn btn-block btn-primary">Search</button>                
             </div>
+    </div>
 
             <!-- main -->
             <div class="col-xs-12 col-sm-9 col-9">

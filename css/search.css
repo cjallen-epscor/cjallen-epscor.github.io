@@ -28,7 +28,7 @@
 /** for the search facet selection widgets (left column)  **/
 .sidebar-section {
     border-bottom: thin solid #999999;
-    margin-right:-15px;
+    /*margin-right:-15px;*/
 }
 
 .sidebar-section.adjust-padding {
