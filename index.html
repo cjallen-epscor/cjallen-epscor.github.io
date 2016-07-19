@@ -575,6 +575,15 @@
         }
 
     </script>
+    <script>
+		//allow enter key to submit after entering a keyword
+		$("#keyword-input").keyup(function(event){
+		    if(event.keyCode == 13){
+		        $("#search-btn").click();
+		        event.preventDefault()
+		    }
+		})
 
+	</script>
   </body>
 </html>
